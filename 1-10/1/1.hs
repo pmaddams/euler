@@ -5,7 +5,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 multiples :: [Int]
-multiples = [x | x <- [1..], x `mod` 3 == 0 || x `mod` 5 == 0]
+multiples = [n | n <- [1..], n `mod` 3 == 0 || n `mod` 5 == 0]
 
 checkMultiples :: IO ()
 checkMultiples = check "multiples"

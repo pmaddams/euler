@@ -8,12 +8,13 @@ check name tests = assert (and tests) $
 primes :: [Int]
 primes = sieve [2..] Map.empty
   where
-    sieve (x:xs) m = case Map.lookup x m of
-        Nothing -> x : sieve xs (Map.insert (x^2) [x] m)
-        Just ps -> sieve xs (foldl mark (Map.delete x m) ps)
+    sieve (n:ns) m = case Map.lookup n m of
+        Nothing -> n : sieve ns (Map.insert (n^2) [n] m)
+        Just ps -> sieve ns (foldl mark (Map.delete n m) ps)
       where
-        mark m p = Map.insertWith (++) (x+p) [p] m
+        mark m p = Map.insertWith (++) (n+p) [p] m
 
+checkPrimes :: IO ()
 checkPrimes = check "primes"
     [ take 10 primes == [2,3,5,7,11,13,17,19,23,29]
     , last (take 1000 primes) == 7919
@@ -28,6 +29,7 @@ factors n = f' n primes
         | n `mod` p == 0 = p : f' (n `div` p) (p:ps)
         | otherwise      = f' n ps
 
+checkFactors :: IO ()
 checkFactors = check "factors"
     [ factors 13195 == [5,7,13,29]
     , factors 216 == [2,2,2,3,3,3]
