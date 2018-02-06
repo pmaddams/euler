@@ -25,11 +25,8 @@ checkPalindrome = check "palindrome"
     ]
 
 largestP :: [Int] -> Maybe Int
-largestP ns =
-    let products = sortBy (flip compare) (multiplyAll ns)
-    in case (dropWhile (not . palindrome) products) of
-        []    -> Nothing
-        (n:_) -> Just n
+largestP ns = find palindrome $
+    sortBy (flip compare) (multiplyAll ns)
 
 checkLargestP :: IO ()
 checkLargestP = check "largestP"
