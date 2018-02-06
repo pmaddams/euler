@@ -16,7 +16,7 @@ primes = sieve [2..] Map.empty
 
 checkPrimes :: IO ()
 checkPrimes = check "primes"
-    [ take 10 primes == [2,3,5,7,11,13,17,19,23,29]
+    [ take 6 primes == [2,3,5,7,11,13]
     , primes !! 999 == 7919
     ]
 
