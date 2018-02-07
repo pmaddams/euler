@@ -1,18 +1,18 @@
 import Control.Exception
-import qualified Data.Map as Map
+import qualified Data.Map as M
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 primes :: [Integer]
-primes = sieve [2..] Map.empty
+primes = sieve [2..] M.empty
   where
-    sieve (n:ns) m = case Map.lookup n m of
-        Nothing -> n : sieve ns (Map.insert (n^2) [n] m)
-        Just ps -> sieve ns (foldl mark (Map.delete n m) ps)
+    sieve (n:ns) m = case M.lookup n m of
+        Nothing -> n : sieve ns (M.insert (n^2) [n] m)
+        Just ps -> sieve ns (foldl mark (M.delete n m) ps)
       where
-        mark m p = Map.insertWith (++) (n+p) [p] m
+        mark m p = M.insertWith (++) (n+p) [p] m
 
 checkPrimes :: IO ()
 checkPrimes = check "primes"
