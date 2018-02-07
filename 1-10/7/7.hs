@@ -1,11 +1,11 @@
 import Control.Exception
-import qualified Data.IntMap as Map
+import qualified Data.Map as Map
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-primes :: [Int]
+primes :: [Integer]
 primes = sieve [2..] Map.empty
   where
     sieve (n:ns) m = case Map.lookup n m of

@@ -20,25 +20,8 @@ checkPrimes = check "primes"
     , primes !! 999 == 7919
     ]
 
-factors :: Integer -> [Integer]
-factors n = f' n primes
-  where
-    f' n (p:ps)
-        | n <= 1         = []
-        | p^2 > n        = [n]
-        | n `mod` p == 0 = p : f' (n `div` p) (p:ps)
-        | otherwise      = f' n ps
-
-checkFactors :: IO ()
-checkFactors = check "factors"
-    [ factors 13195 == [5,7,13,29]
-    , factors 216 == [2,2,2,3,3,3]
-    ]
-
 test :: IO ()
-test = do
-    checkPrimes
-    checkFactors
+test = checkPrimes
 
 main :: IO ()
-main = print (last (factors 600851475143))
+main = print (sum (takeWhile (< 2000000) primes))
