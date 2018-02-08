@@ -10,8 +10,8 @@ digits n bn = (read . (take n) . show) bn
 
 checkDigits :: IO ()
 checkDigits = check "digits"
-    [ digits 5 123456789 == 12345
-    , digits 10 123456789 == 123456789
+    [ 5 `digits` 123456789 == 12345
+    , 10 `digits` 123456789 == 123456789
     ]
 
 test :: IO ()
