@@ -6,7 +6,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 digits :: Int -> Integer -> Integer
-digits n bn = (read . (take n) . show) bn :: Integer
+digits n bn = (read . (take n) . show) bn
 
 checkDigits :: IO ()
 checkDigits = check "digits"
@@ -21,5 +21,5 @@ main :: IO ()
 main = do
     s <- readFile "13.txt"
     ss <- return (lines s)
-    ns <- return (map read ss :: [Integer])
+    ns <- return (map read ss)
     print (10 `digits` (sum ns))
