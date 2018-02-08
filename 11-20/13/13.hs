@@ -1,5 +1,4 @@
 import Control.Exception
-import Data.Char
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
