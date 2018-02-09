@@ -5,7 +5,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 digits :: Int -> Integer -> Integer
-digits n bn = (read . (take n) . show) bn
+n `digits` bn = (read . (take n) . show) bn
 
 checkDigits :: IO ()
 checkDigits = check "digits"
