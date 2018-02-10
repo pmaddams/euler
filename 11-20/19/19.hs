@@ -37,14 +37,6 @@ data Date = Date
     , day   :: Int
     } deriving (Eq, Show)
 
-date :: Year -> Month -> Int -> Date
-date y m d =
-    if y < 1900 ||
-       d < 1 ||
-       d > daysPerMonth y m
-    then error "invalid date"
-    else Date y m d
-
 leap :: Year -> Bool
 leap y = y `mod` 4 == 0 && (y `mod` 100 /= 0 || y `mod` 400 == 0)
 
@@ -71,6 +63,14 @@ daysPerMonth _ m = case m of
     Oct -> 31
     Nov -> 30
     Dec -> 31
+
+date :: Year -> Month -> Int -> Date
+date y m d =
+    if y < 1900 ||
+       d < 1 ||
+       d > daysPerMonth y m
+    then error "invalid date"
+    else Date y m d
 
 months :: [Month]
 months = map toEnum [0..11]
