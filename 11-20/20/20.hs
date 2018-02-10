@@ -14,8 +14,19 @@ checkSumDigits = check "sumDigits"
     , sumDigits 67890 == sum [6..9]
     ]
 
+factorial :: Integer -> Integer
+factorial n = product [2..n]
+
+checkFactorial :: IO ()
+checkFactorial = check "factorial"
+    [ and (map ((==1) . factorial) [-1..1])
+    , factorial 10 == 3628800
+    ]
+
 test :: IO ()
-test = checkSumDigits
+test = do
+    checkSumDigits
+    checkFactorial
 
 main :: IO ()
-main = print (sumDigits (product [1..100]))
+main = print (sumDigits (factorial 100))
