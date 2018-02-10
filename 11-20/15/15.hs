@@ -5,7 +5,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 choose :: Integer -> Integer -> Integer
-n `choose` k = (product [k+1..n]) `div` (product [1..n-k])
+n `choose` k = (product [k+1..n]) `div` (product [2..n-k])
 
 checkChoose :: IO ()
 checkChoose = check "choose"
