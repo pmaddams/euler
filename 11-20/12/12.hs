@@ -45,13 +45,13 @@ checkFactors = check "factors"
     , factors 216 == [2,2,2,3,3,3]
     ]
 
-divisors :: Integer -> Int
-divisors n = product $ map ((+1) . length) (group (factors n))
+sigmaZero :: Integer -> Int
+sigmaZero n = product $ map ((+1) . length) (group (factors n))
 
-checkDivisors :: IO ()
-checkDivisors = check "divisors"
-    [ divisors 12 == length [1,2,3,4,6,12]
-    , divisors 16 == length [1,2,4,8,16]
+checkSigmaZero :: IO ()
+checkSigmaZero = check "sigmaZero"
+    [ sigmaZero 12 == length [1,2,3,4,6,12]
+    , sigmaZero 16 == length [1,2,4,8,16]
     ]
 
 test :: IO ()
@@ -59,8 +59,8 @@ test = do
     checkTriangles
     checkPrimes
     checkFactors
-    checkDivisors
+    checkSigmaZero
 
 main :: IO ()
-main = case (find ((> 500) . divisors) triangles) of
+main = case (find ((> 500) . sigmaZero) triangles) of
     Just n -> print n
