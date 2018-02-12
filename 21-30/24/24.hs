@@ -1,0 +1,21 @@
+import Control.Exception
+import Data.List
+
+check :: String -> [Bool] -> IO ()
+check name tests = assert (and tests) $
+    putStrLn (name ++ ": tests passed")
+
+lexPerms :: [Int] -> [String]
+lexPerms = sort . permutations . concat . map show
+
+checkLexPerms :: IO ()
+checkLexPerms = check "lexPerms"
+    [ elem "3124" (lexPerms [1..4])
+    , lexPerms [0..2] == ["012","021","102","120","201","210"]
+    ]
+
+test :: IO ()
+test = checkLexPerms
+
+main :: IO ()
+main = print ((lexPerms [0..9]) !! 999999)
