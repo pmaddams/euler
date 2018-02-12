@@ -4,7 +4,7 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-fibonacci :: [Int]
+fibonacci :: [Integer]
 fibonacci = 1 : 2 : zipWith (+) fibonacci (tail fibonacci)
   
 checkFibonacci :: IO ()
