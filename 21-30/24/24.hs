@@ -10,7 +10,7 @@ lexPerms = sort . permutations . concat . map show
 
 checkLexPerms :: IO ()
 checkLexPerms = check "lexPerms"
-    [ elem "3124" (lexPerms [1..4])
+    [ "3124" `elem` (lexPerms [1..4])
     , lexPerms [0..2] == ["012","021","102","120","201","210"]
     ]
 
