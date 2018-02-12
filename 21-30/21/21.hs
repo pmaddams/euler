@@ -49,7 +49,7 @@ divisors :: Integer -> [Integer]
 divisors n = sort $ d' (runs (factors n)) [1]
   where
     d' [] acc            = acc
-    d' ((p, len):cs) acc = d' cs acc'
+    d' ((p, len):rs) acc = d' rs acc'
       where
         acc' = acc ++ [d * p^x | x <- [1..len], d <- acc]
 
