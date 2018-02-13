@@ -18,7 +18,6 @@ checkRemainders = check "remainders"
 cycleLength :: Int -> Int
 cycleLength d = c' (remainders d) []
   where
-    c' [] _        = 0
     c' (0:rs) _    = 0
     c' (r:rs) seen = case (elemIndex r seen) of
         Nothing -> c' rs (r:seen)
