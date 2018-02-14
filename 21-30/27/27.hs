@@ -38,7 +38,7 @@ smallPrime n = n > 1 &&
 checkSmallPrime :: IO ()
 checkSmallPrime = check "smallPrime"
     [ all smallPrime (take 100 primes)
-    , not (all smallPrime [1..100])
+    , not (any smallPrime [-1,0,1,4,9])
     ]
 
 asAndBs :: [(Integer, Integer)]
