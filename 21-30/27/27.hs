@@ -46,7 +46,7 @@ maximumAB = fst $ maximumBy (comparing snd) $
     [ ((a, b), len)
     | b <- takeWhile (< 1000) (dropWhile (< 41) primes)
     , a <- [(2-b)..min (b-40) 1000]
-    , smallPrime (1+a+b)
+    , smallPrime (1 + a + b)
     , let len = length $ takeWhile smallPrime
               [n^2 + a*n + b | n <- [2..1000]]
     ]
