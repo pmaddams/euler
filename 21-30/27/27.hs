@@ -30,7 +30,7 @@ millerRabin n (a:as) =
 
 smallPrime :: Integer -> Bool
 smallPrime n = n > 1 &&
-    let ps = take 3 primes
+    let ps = take 5 primes
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin n ps
@@ -41,25 +41,15 @@ checkSmallPrime = check "smallPrime"
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
-asAndBs :: [(Integer, Integer)]
-asAndBs =
-    [ (a, b)
+maximumAB :: (Integer, Integer)
+maximumAB = fst $ maximumBy (comparing snd) $
+    [ ((a, b), len)
     | b <- takeWhile (< 1000) (dropWhile (< 41) primes)
     , a <- [(2-b)..min (b-40) 1000]
-    , let c = 1+a+b in smallPrime c
-    , let d = 4+2*a+b in smallPrime d
+    , smallPrime (1+a+b)
+    , let len = length $ takeWhile smallPrime
+              [n^2 + a*n + b | n <- [2..1000]]
     ]
-
-f = fst $ maximumBy (comparing snd)
-    ([ (a*b, len)
-     | (a,b) <- asAndBs
-     , let len = length $
-               takeWhile smallPrime
-                   [ c
-                   | n <- [1..1000]
-                   , let c = n^2 + a*n + b
-                   , c > 1]
-     ])
 
 test :: IO ()
 test = do
@@ -67,4 +57,6 @@ test = do
     checkSmallPrime
 
 main :: IO ()
-main = print f
+main =
+    let (a, b) = maximumAB
+    in print (a*b)
