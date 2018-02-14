@@ -2,7 +2,6 @@ import Control.Exception
 import Data.List
 import qualified Data.Map as M
 import Data.Ord
-import qualified Data.Set as S
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
@@ -23,25 +22,49 @@ checkPrimes = check "primes"
     , primes !! 999 == 7919
     ]
 
+millerRabin :: Integer -> [Integer] -> Bool
+millerRabin n []     = True
+millerRabin n (a:as) =
+    a^(n-1) `mod` n == 1 &&
+    millerRabin n as
+
+smallPrime :: Integer -> Bool
+smallPrime n = n > 1 &&
+    let ps = take 3 primes
+    in n `elem` ps ||
+       all (\p -> n `mod` p /= 0) ps &&
+       millerRabin n ps
+
+checkSmallPrime :: IO ()
+checkSmallPrime = check "smallPrime"
+    [ all smallPrime (take 100 primes)
+    , not (all smallPrime [1..100])
+    ]
+
 asAndBs :: [(Integer, Integer)]
 asAndBs =
     [ (a, b)
     | b <- takeWhile (< 1000) (dropWhile (< 41) primes)
     , a <- [(2-b)..min (b-40) 1000]
-    , let c = 1+a+b in c == head (dropWhile (< c) primes)
+    , let c = 1+a+b in smallPrime c
+    , let d = 4+2*a+b in smallPrime d
     ]
 
-f = let s = S.fromList (takeWhile (< 2000000) primes)
-        prime n = S.member n s
-    in fst $ maximumBy (comparing snd)
-           ([ (a*b, len)
-            | (a,b) <- asAndBs
-            , let len = length (takeWhile prime [n^2 + a*n + b | n <- [1..1000]])
-            ])
+f = fst $ maximumBy (comparing snd)
+    ([ (a*b, len)
+     | (a,b) <- asAndBs
+     , let len = length $
+               takeWhile smallPrime
+                   [ c
+                   | n <- [1..1000]
+                   , let c = n^2 + a*n + b
+                   , c > 1]
+     ])
 
 test :: IO ()
 test = do
     checkPrimes
+    checkSmallPrime
 
 main :: IO ()
 main = print f
