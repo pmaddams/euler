@@ -30,7 +30,7 @@ millerRabin n (a:as) =
 
 smallPrime :: Integer -> Bool
 smallPrime n = n > 1 &&
-    let ps = take 5 primes
+    let ps = take 4 primes
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin n ps
