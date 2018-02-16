@@ -6,8 +6,8 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-toDigits :: Int -> [Int]
-toDigits = map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
 
 checkToDigits :: IO ()
 checkToDigits = check "toDigits"
@@ -15,8 +15,8 @@ checkToDigits = check "toDigits"
     , toDigits 987654321 == [9,8..1]
     ]
 
-fromDigits :: [Int] -> Int
-fromDigits = read . concatMap show
+fromDigits :: Integral a => [Int] -> a
+fromDigits = fromIntegral . read . concatMap show
  
 checkFromDigits :: IO ()
 checkFromDigits = check "fromDigits"
