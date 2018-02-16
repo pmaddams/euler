@@ -6,7 +6,7 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-primes :: [Integer]
+primes :: Integral a => [a]
 primes = sieve [2..] M.empty
   where
     sieve (n:ns) m = case M.lookup n m of

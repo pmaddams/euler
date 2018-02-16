@@ -15,7 +15,7 @@ checkTriangles = check "triangles"
     , triangles !! 99 == sum [1..100]
     ]
 
-primes :: [Integer]
+primes :: Integral a => [a]
 primes = sieve [2..] M.empty
   where
     sieve (n:ns) m = case M.lookup n m of
@@ -30,7 +30,7 @@ checkPrimes = check "primes"
     , primes !! 999 == 7919
     ]
 
-factors :: Integer -> [Integer]
+factors :: Integral a => a -> [a]
 factors n = f' n primes
   where
     f' n (p:ps)
