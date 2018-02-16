@@ -6,41 +6,41 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-toList :: Int -> [Int]
-toList = map digitToInt . show
+toDigits :: Int -> [Int]
+toDigits = map digitToInt . show
 
-checkToList :: IO ()
-checkToList = check "toList"
-    [ toList 12345 == [1..5]
-    , toList 987654321 == [9,8..1]
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
     ]
 
-fromList :: [Int] -> Int
-fromList = read . concatMap show
+fromDigits :: [Int] -> Int
+fromDigits = read . concatMap show
  
-checkFromList :: IO ()
-checkFromList = check "fromList"
-    [ fromList [1..5] == 12345
-    , fromList [9,8..1] == 987654321
+checkFromDigits :: IO ()
+checkFromDigits = check "fromDigits"
+    [ fromDigits [1..5] == 12345
+    , fromDigits [9,8..1] == 987654321
     ]
 
-pandigitals :: [(Int, Int, Int)]
-pandigitals =
+productsPD :: [(Int, Int, Int)]
+productsPD =
     [ (m1, m2, p)
     | ns <- permutations [1..9]
     , let (lo, hi) = splitAt 5 ns
     , i <- [1, 2]
     , let (ll, lh) = splitAt i lo
-          m1 = fromList ll
-          m2 = fromList lh
+          m1 = fromDigits ll
+          m2 = fromDigits lh
           p = m1 * m2
-    , sort (toList p) == hi
+    , sort (toDigits p) == hi
     ]
 
 test :: IO ()
 test = do
-    checkToList
-    checkFromList
+    checkToDigits
+    checkFromDigits
 
 main :: IO ()
-main = print (sum (nub [p | (_,_,p) <- pandigitals]))
+main = print (sum (nub [p | (_,_,p) <- productsPD]))
