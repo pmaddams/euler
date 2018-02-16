@@ -14,19 +14,28 @@ checkToDigits = check "toDigits"
     , toDigits 987654321 == [9,8..1]
     ]
 
-sumFactorialDigits :: Int -> Int
-sumFactorialDigits = sum . map (\n -> product [2..n]) . toDigits
+factorial :: (Integral a, Integral b) => a -> b
+factorial n = product (map fromIntegral [2..n])
 
-checkSumFactorialDigits :: IO ()
-checkSumFactorialDigits = check "sumFactorialDigits"
-    [ sumFactorialDigits 123 == 9
-    , sumFactorialDigits 145 == 145
+checkFactorial :: IO ()
+checkFactorial = check "factorial"
+    [ and (map ((==1) . factorial) [-1..1])
+    , factorial 10 == 3628800
+    ]
+
+sumDigitFactorials :: Int -> Int
+sumDigitFactorials = sum . (map factorial) . toDigits
+
+checkSumDigitFactorials :: IO ()
+checkSumDigitFactorials = check "sumFactorialDigits"
+    [ sumDigitFactorials 123 == 9
+    , sumDigitFactorials 145 == 145
     ]
 
 test :: IO ()
 test = do
     checkToDigits
-    checkSumFactorialDigits
+    checkSumDigitFactorials
 
 main :: IO ()
-main = print (sum [n | n <- [3..50000], n == sumFactorialDigits n])
+main = print (sum [n | n <- [3..50000], n == sumDigitFactorials n])

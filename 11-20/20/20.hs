@@ -14,8 +14,8 @@ checkSumDigits = check "sumDigits"
     , sumDigits 67890 == sum [6..9]
     ]
 
-factorial :: Integer -> Integer
-factorial n = product [2..n]
+factorial :: (Integral a, Integral b) => a -> b
+factorial n = product (map fromIntegral [2..n])
 
 checkFactorial :: IO ()
 checkFactorial = check "factorial"
