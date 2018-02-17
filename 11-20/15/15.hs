@@ -4,8 +4,10 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-choose :: Integer -> Integer -> Integer
-n `choose` k = (product [k+1..n]) `div` (product [2..n-k])
+choose :: Integral a => Int -> Int -> a
+n `choose` k =
+    let f = product . (map fromIntegral)
+    in f [k+1..n] `div` f [2..n-k]
 
 checkChoose :: IO ()
 checkChoose = check "choose"
@@ -13,7 +15,7 @@ checkChoose = check "choose"
     , 5 `choose` 3 == 10
     ]
 
-paths :: Integer -> Integer
+paths :: Int -> Integer
 paths n = (2*n) `choose` n
 
 checkPaths :: IO ()

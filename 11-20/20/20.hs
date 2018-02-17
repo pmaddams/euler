@@ -5,13 +5,13 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-sumDigits :: Integer -> Int
-sumDigits = sum . map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
 
-checkSumDigits :: IO ()
-checkSumDigits = check "sumDigits"
-    [ sumDigits 12345 == sum [1..5]
-    , sumDigits 67890 == sum [6..9]
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
     ]
 
 factorial :: (Integral a, Integral b) => a -> b
@@ -25,8 +25,8 @@ checkFactorial = check "factorial"
 
 test :: IO ()
 test = do
-    checkSumDigits
+    checkToDigits
     checkFactorial
 
 main :: IO ()
-main = print (sumDigits (factorial 100))
+main = print (sum (toDigits (factorial 100)))

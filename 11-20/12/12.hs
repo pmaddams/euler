@@ -6,15 +6,6 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-triangles :: [Integer]
-triangles = scanl1 (+) [1..]
-
-checkTriangles :: IO ()
-checkTriangles = check "triangles"
-    [ take 10 triangles == [1,3,6,10,15,21,28,36,45,55]
-    , triangles !! 99 == sum [1..100]
-    ]
-
 primes :: Integral a => [a]
 primes = sieve [2..] M.empty
   where
@@ -45,7 +36,7 @@ checkFactors = check "factors"
     , factors 216 == [2,2,2,3,3,3]
     ]
 
-sigmaZero :: Integer -> Int
+sigmaZero :: Integral a => a -> Int
 sigmaZero n = product $ map ((+1) . length) (group (factors n))
 
 checkSigmaZero :: IO ()
@@ -54,12 +45,21 @@ checkSigmaZero = check "sigmaZero"
     , sigmaZero 16 == length [1,2,4,8,16]
     ]
 
+triangles :: [Int]
+triangles = scanl1 (+) [1..]
+
+checkTriangles :: IO ()
+checkTriangles = check "triangles"
+    [ take 10 triangles == [1,3,6,10,15,21,28,36,45,55]
+    , triangles !! 99 == sum [1..100]
+    ]
+
 test :: IO ()
 test = do
-    checkTriangles
     checkPrimes
     checkFactors
     checkSigmaZero
+    checkTriangles
 
 main :: IO ()
 main = case (find ((> 500) . sigmaZero) triangles) of

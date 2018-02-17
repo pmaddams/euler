@@ -1,4 +1,5 @@
 import Control.Exception
+import Data.Char
 import Data.List
 
 check :: String -> [Bool] -> IO ()
@@ -14,20 +15,20 @@ checkFibonacci = check "fibonacci"
     , last (takeWhile (< 4000000) fibonacci) == 3524578
     ]
 
-numDigits :: Integer -> Int
-numDigits = length . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
 
-checkNumDigits :: IO ()
-checkNumDigits = check "numDigits"
-    [ numDigits 12345 == 5
-    , numDigits 1234567890 == 10
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
     ]
 
 test :: IO ()
 test = do
     checkFibonacci
-    checkNumDigits
+    checkToDigits
 
 main :: IO ()
-main = case (findIndex ((>= 1000) . numDigits)) fibonacci of
+main = case (findIndex ((>=1000) . length . toDigits)) fibonacci of
     Just i -> print (i+1)

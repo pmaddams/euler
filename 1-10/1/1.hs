@@ -4,17 +4,19 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-multiples :: [Int]
-multiples = [n | n <- [1..], n `mod` 3 == 0 || n `mod` 5 == 0]
+divisibleAny :: Integral a => a -> [a] -> Bool
+n `divisibleAny` ds = any (\d -> n `mod` d == 0) ds
 
-checkMultiples :: IO ()
-checkMultiples = check "multiples"
-    [ takeWhile (< 10) multiples == [3,5,6,9]
-    , takeWhile (< 20) multiples == [3,5,6,9,10,12,15,18]
+checkDivisibleAny :: IO ()
+checkDivisibleAny = check "divisibleAny"
+    [ not (5 `divisibleAny` [2,3])
+    , 5 `divisibleAny` [2,3,5]
     ]
 
 test :: IO ()
-test = checkMultiples
+test = checkDivisibleAny
 
 main :: IO ()
-main = print (sum (takeWhile (< 1000) multiples))
+main =
+    let multiples = filter (`divisibleAny` [3,5]) [1..]
+    in print (sum (takeWhile (< 1000) multiples))

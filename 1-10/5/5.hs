@@ -4,17 +4,17 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-divisibleBy :: [Int] -> Int
-divisibleBy = foldr1 lcm
+leastMultiple :: [Int] -> Int
+leastMultiple = foldr1 lcm
 
-checkDivisibleBy :: IO ()
-checkDivisibleBy = check "divisibleBy"
-    [ divisibleBy [1..10] == 2520
-    , divisibleBy [2,3,4,6] == 12
+checkLeastMultiple :: IO ()
+checkLeastMultiple = check "leastMultiple"
+    [ leastMultiple [1..10] == 2520
+    , leastMultiple [2,3,4,6] == 12
     ]
 
 test :: IO ()
-test = checkDivisibleBy
+test = checkLeastMultiple
 
 main :: IO ()
-main = print (divisibleBy [1..20])
+main = print (leastMultiple [1..20])

@@ -45,7 +45,7 @@ checkRuns = check "runs"
     , runs [1,1,2,2,2,3] == [(1,2),(2,3),(3,1)]
     ]
 
-divisors :: Integer -> [Integer]
+divisors :: Integral a => a -> [a]
 divisors n = sort $ d' (runs (factors n)) [1]
   where
     d' [] acc            = acc
@@ -59,7 +59,7 @@ checkDivisors = check "divisors"
     , divisors 16 == [1,2,4,8,16]
     ]
 
-sumPropDiv :: Integer -> Integer
+sumPropDiv :: Integral a => a -> a
 sumPropDiv = sum . init . divisors
 
 checkSumPropDiv :: IO ()
@@ -68,7 +68,7 @@ checkSumPropDiv = check "sumPropDiv"
     , sumPropDiv 284 == 220
     ]
 
-amicables :: [Integer]
+amicables :: Integral a => [a]
 amicables = a' [2..]
   where
     a' (n:ns) =

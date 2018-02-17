@@ -6,7 +6,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 lexPerms :: [Int] -> [String]
-lexPerms = sort . permutations . concat . map show
+lexPerms = sort . permutations . concatMap show
 
 checkLexPerms :: IO ()
 checkLexPerms = check "lexPerms"

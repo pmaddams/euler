@@ -1,11 +1,30 @@
 import Control.Exception
+import Data.Char
 import Data.List
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-multiplyAll :: [Int] -> [Int]
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
+
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
+    ]
+
+palindrome :: Eq a => [a] -> Bool
+palindrome xs = xs == reverse xs
+
+checkPalindrome :: IO ()
+checkPalindrome = check "palindrome"
+    [ palindrome (toDigits 12321)
+    , not (palindrome (toDigits 12345))
+    ]
+
+multiplyAll :: Num a => [a] -> [a]
 multiplyAll []     = []
 multiplyAll (n:ns) = (map (*n) (n:ns)) ++ multiplyAll ns
 
@@ -15,17 +34,8 @@ checkMultiplyAll = check "multiplyAll"
     , multiplyAll [4..6] == [16,20,24,25,30,36]
     ]
 
-palindrome :: Int -> Bool
-palindrome n = let s = show n in s == reverse s
-
-checkPalindrome :: IO ()
-checkPalindrome = check "palindrome"
-    [ palindrome 12321
-    , not (palindrome 12345)
-    ]
-
-largestP :: [Int] -> Maybe Int
-largestP ns = find palindrome $
+largestP :: Integral a => [a] -> Maybe a
+largestP ns = find (palindrome . toDigits) $
     sortBy (flip compare) (multiplyAll ns)
 
 checkLargestP :: IO ()
@@ -36,8 +46,9 @@ checkLargestP = check "largestP"
 
 test :: IO ()
 test = do
-    checkMultiplyAll
+    checkToDigits
     checkPalindrome
+    checkMultiplyAll
     checkLargestP
 
 main :: IO ()

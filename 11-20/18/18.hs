@@ -5,9 +5,9 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 mergeRows :: [Int] -> [Int] -> [Int]
-mergeRows top bottom = zipWith3 best top bottom (tail bottom)
+mergeRows upper lower = zipWith3 best upper lower (tail lower)
   where
-    best t b1 b2 = t + (max b1 b2)
+    best u l l' = u + (max l l')
 
 checkMergeRows :: IO ()
 checkMergeRows = check "mergeRows"

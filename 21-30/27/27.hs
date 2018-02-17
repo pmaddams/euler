@@ -22,18 +22,36 @@ checkPrimes = check "primes"
     , primes !! 999 == 7919
     ]
 
+modExp :: Integer -> Integer -> Integer -> Integer
+modExp _ _ 1 = 0
+modExp b x m = m' (b `mod` m) x
+  where
+    m' _ 0 = 1
+    m' b x =
+        let b' = (b^2) `mod` m
+            x' = x `div` 2
+        in if x `mod` 2 == 1
+           then (b * m' b' x') `mod` m
+           else m' b' x'
+
+checkModExp :: IO ()
+checkModExp = check "modExp"
+    [ modExp 5 3 3 == 2
+    , modExp 2 10 3 == 1
+    ]
+
 millerRabin :: Integer -> [Integer] -> Bool
 millerRabin n []     = True
 millerRabin n (a:as) =
-    a^(n-1) `mod` n == 1 &&
+    modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Integer -> Bool
+smallPrime :: Int -> Bool
 smallPrime n = n > 1 &&
     let ps = take 4 primes
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
-       millerRabin n ps
+       millerRabin (toInteger n) (map toInteger ps)
 
 checkSmallPrime :: IO ()
 checkSmallPrime = check "smallPrime"
@@ -41,7 +59,7 @@ checkSmallPrime = check "smallPrime"
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
-maximumAB :: (Integer, Integer)
+maximumAB :: (Int, Int)
 maximumAB = fst $ maximumBy (comparing snd) $
     [ ((a, b), len)
     | b <- takeWhile (< 1000) (dropWhile (< 41) primes)
@@ -54,6 +72,7 @@ maximumAB = fst $ maximumBy (comparing snd) $
 test :: IO ()
 test = do
     checkPrimes
+    checkModExp
     checkSmallPrime
 
 main :: IO ()

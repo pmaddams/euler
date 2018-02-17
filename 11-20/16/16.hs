@@ -5,17 +5,17 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-sumDigits :: Integer -> Int
-sumDigits = sum . map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
 
-checkSumDigits :: IO ()
-checkSumDigits = check "sumDigits"
-    [ sumDigits 12345 == sum [1..5]
-    , sumDigits 67890 == sum [6..9]
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
     ]
 
 test :: IO ()
-test = checkSumDigits
+test = checkToDigits
 
 main :: IO ()
-main = print (sumDigits (2^1000))
+main = print (sum (toDigits (2^1000)))

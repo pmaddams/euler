@@ -5,7 +5,7 @@ check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-adjacent :: Int -> [Int] -> [[Int]]
+adjacent :: Int -> [a] -> [[a]]
 adjacent n ds
     | length ds < n = []
     | otherwise     = take n ds : adjacent n (tail ds)

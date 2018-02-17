@@ -1,11 +1,30 @@
 import Control.Exception
+import Data.Char
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
-digits :: Int -> Integer -> Integer
-n `digits` bn = (read . (take n) . show) bn
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
+
+checkToDigits :: IO ()
+checkToDigits = check "toDigits"
+    [ toDigits 12345 == [1..5]
+    , toDigits 987654321 == [9,8..1]
+    ]
+
+fromDigits :: Integral a => [Int] -> a
+fromDigits = fromIntegral . read . concatMap show
+
+checkFromDigits :: IO ()
+checkFromDigits = check "fromDigits"
+    [ fromDigits [1..5] == 12345
+    , fromDigits [9,8..1] == 987654321
+    ]
+
+digits :: (Integral a, Integral b) => Int -> a -> b
+n `digits` bn = (fromDigits . (take n) . toDigits) bn
 
 checkDigits :: IO ()
 checkDigits = check "digits"
@@ -14,7 +33,10 @@ checkDigits = check "digits"
     ]
 
 test :: IO ()
-test = checkDigits
+test = do
+    checkToDigits
+    checkFromDigits
+    checkDigits
 
 main :: IO ()
 main = do
