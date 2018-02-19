@@ -14,6 +14,18 @@ checkToDigits = check "toDigits"
     , toDigits 987654321 == [9,8..1]
     ]
 
+toBits :: Integral a => a -> [Int]
+toBits n = b' n []
+  where
+    b' 0 acc = acc
+    b' n acc = b' (n `div` 2) (fromIntegral (n `mod` 2) : acc)
+
+checkToBits :: IO ()
+checkToBits = check "toBits"
+    [ toBits 4 == [1,0,0]
+    , toBits 5 == [1,0,1]
+    ]
+
 palindrome :: Eq a => [a] -> Bool
 palindrome xs = xs == reverse xs
 
@@ -23,22 +35,10 @@ checkPalindrome = check "palindrome"
     , not (palindrome [1..5])
     ]
 
-binary :: Integral a => a -> [Int]
-binary n = b' n []
-  where
-    b' 0 acc = acc
-    b' n acc = b' (n `div` 2) (fromIntegral (n `mod` 2) : acc)
-
-checkBinary :: IO ()
-checkBinary = check "binary"
-    [ binary 4 == [1,0,0]
-    , binary 5 == [1,0,1]
-    ]
-
 doublePalindrome :: Integral a => a -> Bool
 doublePalindrome n = odd n &&
     palindrome (toDigits n) &&
-    palindrome (binary n)
+    palindrome (toBits n)
 
 checkDoublePalindrome :: IO ()
 checkDoublePalindrome = check "doublePalindrome"
@@ -48,8 +48,9 @@ checkDoublePalindrome = check "doublePalindrome"
 
 test :: IO ()
 test = do
+    checkToDigits
+    checkToBits
     checkPalindrome
-    checkBinary
     checkDoublePalindrome
 
 main :: IO ()
