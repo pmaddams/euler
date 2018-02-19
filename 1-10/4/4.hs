@@ -20,8 +20,8 @@ palindrome xs = xs == reverse xs
 
 checkPalindrome :: IO ()
 checkPalindrome = check "palindrome"
-    [ palindrome (toDigits 12321)
-    , not (palindrome (toDigits 12345))
+    [ palindrome [1,2,3,2,1]
+    , not (palindrome [1..5])
     ]
 
 multiplyAll :: Num a => [a] -> [a]
