@@ -53,5 +53,5 @@ test = do
 
 main :: IO ()
 main = case (largestP [100..999]) of
-    Nothing -> putStrLn "none found"
     Just n  -> print n
+    Nothing -> putStrLn "none found"
