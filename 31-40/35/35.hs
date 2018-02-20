@@ -47,14 +47,14 @@ millerRabin n (a:as) =
 
 smallPrime :: Int -> Bool
 smallPrime n = n > 1 &&
-    let ps = take 4 primes
+    let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
 checkSmallPrime :: IO ()
 checkSmallPrime = check "smallPrime"
-    [ all smallPrime (take 100 primes)
+    [ all smallPrime [2,3,5,7,11,13]
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
