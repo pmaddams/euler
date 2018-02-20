@@ -1,7 +1,6 @@
 import Control.Exception
 import Data.Char
 import Data.List
-import Data.List.Split
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
@@ -37,13 +36,29 @@ checkMultiplyPosition = check "multiplyPosition"
     , multiplyPosition [7,8,9,10] == [7,16,27,40]
     ]
 
+extractWords :: String -> [String]
+extractWords cs = e' cs []
+  where
+    e' "" acc       = [acc]
+    e' (c:cs) acc
+        | c == ','  = acc : e' cs []
+        | isAlpha c = e' cs (acc ++ [c])
+        | otherwise = e' cs acc
+
+checkExtractWords :: IO ()
+checkExtractWords = check "extractWords"
+    [ extractWords "hello, world" == ["hello","world"]
+    , extractWords "hello,,w,orld" == ["hello","","w","orld"]
+    ]
+
 test :: IO ()
 test = do
     checkLetterScore
     checkMultiplyPosition
+    checkExtractWords
 
 main :: IO ()
 main = do
     s <- readFile "22.txt"
-    ss <- return (sort (splitOn "," s))
+    ss <- return (sort (extractWords s))
     print (sum (multiplyPosition (map wordScore ss)))

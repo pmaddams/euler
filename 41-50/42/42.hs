@@ -1,7 +1,6 @@
 import Control.Exception
 import Data.Char
 import Data.List
-import Data.List.Split
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
@@ -46,8 +45,8 @@ checkRuns = check "runs"
     , runs [1,1,2,2,2,3] == [(1,2),(2,3),(3,1)]
     ]
 
-triangleWords :: [String] -> Int
-triangleWords ws =
+numTriangleWords :: [String] -> Int
+numTriangleWords ws =
     let rs = runs (sort (map wordScore ws))
     in t' rs triangles 0
   where
@@ -57,10 +56,25 @@ triangleWords ws =
         | v > n      = t' (p:ps) ns acc
         | v == n     = t' ps ns (acc+c)
 
-checkTriangleWords :: IO ()
-checkTriangleWords = check "triangleWords"
-    [ triangleWords ["sky", "abc", "def"] == 3
-    , triangleWords ["ghi", "jkl", "mno"] == 0
+checkNumTriangleWords :: IO ()
+checkNumTriangleWords = check "numTriangleWords"
+    [ numTriangleWords ["sky", "abc", "def"] == 3
+    , numTriangleWords ["ghi", "jkl", "mno"] == 0
+    ]
+
+extractWords :: String -> [String]
+extractWords cs = e' cs []
+  where
+    e' "" acc       = [acc]
+    e' (c:cs) acc
+        | c == ','  = acc : e' cs []
+        | isAlpha c = e' cs (acc ++ [c])
+        | otherwise = e' cs acc
+
+checkExtractWords :: IO ()
+checkExtractWords = check "extractWords"
+    [ extractWords "hello, world" == ["hello","world"]
+    , extractWords "hello,,w,orld" == ["hello","","w","orld"]
     ]
 
 test :: IO ()
@@ -69,10 +83,11 @@ test = do
     checkWordScore
     checkTriangles
     checkRuns
-    checkTriangleWords
+    checkNumTriangleWords
+    checkExtractWords
 
 main :: IO ()
 main = do
     s <- readFile "42.txt"
-    ss <- return (splitOn "," s)
-    print (triangleWords ss)
+    ss <- return (extractWords s)
+    print (numTriangleWords ss)
