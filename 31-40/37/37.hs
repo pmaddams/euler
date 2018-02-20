@@ -36,7 +36,7 @@ modExp b x m = m' (b `mod` m) x
 checkModExp :: IO ()
 checkModExp = check "modExp"
     [ modExp 5 3 3 == 2
-    , modExp 2 10 3 == 1
+    , modExp 2 3 5 == 3
     ]
 
 millerRabin :: Integer -> [Integer] -> Bool
