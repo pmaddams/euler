@@ -55,7 +55,7 @@ checkDivisibleGroups = check "divisibleGroups"
 mergeGroups :: [[Int]] -> [[Int]] -> [[Int]]
 mergeGroups begins ends = concat (m' <$> begins <*> pure ends)
   where
-    m' _ [] = []
+    m' _ []            = []
     m' (b:bs) (es:ess) =
         let es' = take 2 es
         in if bs == es'
