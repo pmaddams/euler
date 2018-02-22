@@ -1,5 +1,4 @@
 import Control.Exception
-import Data.List
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
@@ -42,27 +41,9 @@ checkSmallPrime = check "smallPrime"
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
-smallOddComposites :: [Int]
-smallOddComposites = [n | n <- [3,5..], not (smallPrime n)]
-
-checkSmallOddComposites :: IO ()
-checkSmallOddComposites = check "smallOddComposites"
-    [ take 6 smallOddComposites == [9,15,21,25,27,33]
-    , 111 `elem` smallOddComposites
-    ]
-
-doubleSquares :: Integral a => [a]
-doubleSquares = [2*n^2 | n <- [1..]]
-
-checkDoubleSquares :: IO ()
-checkDoubleSquares = check "doubleSquares"
-    [ take 6 doubleSquares == [2,8,18,32,50,72]
-    , doubleSquares !! 999 == 2000000
-    ]
-
 sumOfPrimeDoubleSquare :: Int -> Bool
 sumOfPrimeDoubleSquare n =
-    let ds = takeWhile (< n) doubleSquares
+    let ds = takeWhile (< n) (map ((*2) . (^2)) [1..])
     in s' n ds
   where
     s' _ []     = False
@@ -81,10 +62,12 @@ test :: IO ()
 test = do
     checkModExp
     checkSmallPrime
-    checkSmallOddComposites
-    checkDoubleSquares
     checkSumOfPrimeDoubleSquare
 
 main :: IO ()
-main = case (find (not . sumOfPrimeDoubleSquare) smallOddComposites) of
-    Just n -> print n
+main = print $ head $
+    [ n
+    | n <- [3,5..]
+    , not (smallPrime n)
+    , not (sumOfPrimeDoubleSquare n)
+    ]
