@@ -41,10 +41,10 @@ checkSmallPrime = check "smallPrime"
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
-sumOfPrimeDoubleSquare :: Int -> Bool
-sumOfPrimeDoubleSquare n =
-    let ds = takeWhile (< n) (map ((*2) . (^2)) [1..])
-    in s' n ds
+sumOfPrimeAndDoubleSquare :: Int -> Bool
+sumOfPrimeAndDoubleSquare n =
+    let doubleSquares = takeWhile (< n) (map ((*2) . (^2)) [1..])
+    in s' n doubleSquares
   where
     s' _ []     = False
     s' n (d:ds) =
@@ -52,22 +52,22 @@ sumOfPrimeDoubleSquare n =
        then True
        else s' n ds
 
-checkSumOfPrimeDoubleSquare :: IO ()
-checkSumOfPrimeDoubleSquare = check "sumOfPrimeDoubleSquare"
-    [ all sumOfPrimeDoubleSquare [9,15,21,25,27,33]
-    , not (any sumOfPrimeDoubleSquare [1,2,3,6,8,12])
+checkSumOfPrimeAndDoubleSquare :: IO ()
+checkSumOfPrimeAndDoubleSquare = check "sumOfPrimeAndDoubleSquare"
+    [ all sumOfPrimeAndDoubleSquare [9,15,21,25,27,33]
+    , not (any sumOfPrimeAndDoubleSquare [1,2,3,6,8,12])
     ]
 
 test :: IO ()
 test = do
     checkModExp
     checkSmallPrime
-    checkSumOfPrimeDoubleSquare
+    checkSumOfPrimeAndDoubleSquare
 
 main :: IO ()
 main = print $ head $
     [ n
     | n <- [3,5..]
     , not (smallPrime n)
-    , not (sumOfPrimeDoubleSquare n)
+    , not (sumOfPrimeAndDoubleSquare n)
     ]
