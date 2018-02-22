@@ -1,37 +1,9 @@
 import Control.Exception
 import Data.List
-import qualified Data.Map as M
 
 check :: String -> [Bool] -> IO ()
 check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
-
-oddComposites :: Integral a => [a]
-oddComposites = sieve [2..] M.empty
-  where
-    sieve (n:ns) m = case M.lookup n m of
-        Just ps -> let rest = sieve ns (foldl mark (M.delete n m) ps)
-                   in if odd n
-                      then n : rest
-                      else rest
-        Nothing -> sieve ns (M.insert (n^2) [n] m)
-      where
-        mark m p = M.insertWith (++) (n+p) [p] m
-
-checkOddComposites :: IO ()
-checkOddComposites = check "oddComposites"
-    [ take 6 oddComposites == [9,15,21,25,27,33]
-    , 111 `elem` oddComposites
-    ]
-
-doubleSquares :: Integral a => [a]
-doubleSquares = [2*n^2 | n <- [1..]]
-
-checkDoubleSquares :: IO ()
-checkDoubleSquares = check "doubleSquares"
-    [ take 6 doubleSquares == [2,8,18,32,50,72]
-    , doubleSquares !! 999 == 2000000
-    ]
 
 modExp :: Integer -> Integer -> Integer -> Integer
 modExp _ _ 1 = 0
@@ -70,6 +42,24 @@ checkSmallPrime = check "smallPrime"
     , not (any smallPrime [-1,0,1,4,9])
     ]
 
+smallOddComposites :: [Int]
+smallOddComposites = [n | n <- [3,5..], not (smallPrime n)]
+
+checkSmallOddComposites :: IO ()
+checkSmallOddComposites = check "smallOddComposites"
+    [ take 6 smallOddComposites == [9,15,21,25,27,33]
+    , 111 `elem` smallOddComposites
+    ]
+
+doubleSquares :: Integral a => [a]
+doubleSquares = [2*n^2 | n <- [1..]]
+
+checkDoubleSquares :: IO ()
+checkDoubleSquares = check "doubleSquares"
+    [ take 6 doubleSquares == [2,8,18,32,50,72]
+    , doubleSquares !! 999 == 2000000
+    ]
+
 sumOfPrimeDoubleSquare :: Int -> Bool
 sumOfPrimeDoubleSquare n =
     let ds = takeWhile (< n) doubleSquares
@@ -89,12 +79,12 @@ checkSumOfPrimeDoubleSquare = check "sumOfPrimeDoubleSquare"
 
 test :: IO ()
 test = do
-    checkOddComposites
-    checkDoubleSquares
     checkModExp
     checkSmallPrime
+    checkSmallOddComposites
+    checkDoubleSquares
     checkSumOfPrimeDoubleSquare
 
 main :: IO ()
-main = case (find (not . sumOfPrimeDoubleSquare) oddComposites) of
+main = case (find (not . sumOfPrimeDoubleSquare) smallOddComposites) of
     Just n -> print n
