@@ -13,22 +13,11 @@ checkPentagons = check "pentagons"
     , 1001 `elem` pentagons
     ]
 
-perfectSquare :: Int -> Bool
-perfectSquare n =
-    let m = floor (sqrt (fromIntegral n))
-    in m^2 == n
-
-checkPerfectSquare :: IO ()
-checkPerfectSquare = check "perfectSquare"
-    [ all perfectSquare (map (^2) [1..5])
-    , not (any perfectSquare (map ((+1) . (^2)) [1..5]))
-    ]
-
 pentagonal :: Int -> Bool
 pentagonal n =
-    let m = 24*n + 1
-    in perfectSquare m &&
-       floor (sqrt (fromIntegral m)) `mod` 6 == 5
+    let r = sqrt (fromIntegral (24*n + 1))
+        (ri, rf) = properFraction r
+    in rf == 0 && ri `mod` 6 == 5
 
 checkPentagonal :: IO ()
 checkPentagonal = check "pentagonal"
@@ -39,7 +28,6 @@ checkPentagonal = check "pentagonal"
 test :: IO ()
 test = do
     checkPentagons
-    checkPerfectSquare
     checkPentagonal
 
 main :: IO ()
