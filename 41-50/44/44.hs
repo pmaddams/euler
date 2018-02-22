@@ -5,7 +5,7 @@ check name tests = assert (and tests) $
     putStrLn (name ++ ": tests passed")
 
 pentagons :: [Int]
-pentagons = [(n*(3*n-1)) `div` 2 | n <- [1..]]
+pentagons = [n*(3*n-1) `div` 2 | n <- [1..]]
 
 checkPentagons :: IO ()
 checkPentagons = check "pentagons"
