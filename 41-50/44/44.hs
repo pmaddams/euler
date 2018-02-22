@@ -9,7 +9,8 @@ pentagons = [(n*(3*n-1)) `div` 2 | n <- [1..]]
 
 checkPentagons :: IO ()
 checkPentagons = check "pentagons"
-    [ take 10 pentagons == [1,5,12,22,35,51,70,92,117,145]
+    [ take 5 pentagons == [1,5,12,22,35]
+    , 1001 `elem` pentagons
     ]
 
 perfectSquare :: Int -> Bool
@@ -31,7 +32,7 @@ pentagonal n =
 
 checkPentagonal :: IO ()
 checkPentagonal = check "pentagonal"
-    [ all pentagonal (take 10 pentagons)
+    [ all pentagonal [1,5,12,22,35]
     , not (pentagonal 48)
     ]
 
