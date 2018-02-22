@@ -80,15 +80,15 @@ truncatable :: Int -> Bool
 truncatable n = smallPrime n &&
     let ds = toDigits n
     in length ds > 1 &&
-        t' ds [] (reverse ds) []
+       t' ds [] (reverse ds) []
   where
     t' [] _ [] _           = True
     t' (f:fs) fa (r:rs) ra =
         let fa' = fa ++ [f]
             ra' = r : ra
         in smallPrime (fromDigits fa') &&
-            smallPrime (fromDigits ra') &&
-            t' fs fa' rs ra'
+           smallPrime (fromDigits ra') &&
+           t' fs fa' rs ra'
 
 checkTruncatable :: IO ()
 checkTruncatable = check "truncatable"
