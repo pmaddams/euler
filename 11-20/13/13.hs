@@ -23,24 +23,24 @@ checkFromDigits = check "fromDigits"
     , fromDigits [9,8..1] == 987654321
     ]
 
-digits :: (Integral a, Integral b) => Int -> a -> b
-n `digits` bn = (fromDigits . (take n) . toDigits) bn
+digitsOf :: (Integral a, Integral b) => Int -> a -> b
+n `digitsOf` bn = (fromDigits . (take n) . toDigits) bn
 
-checkDigits :: IO ()
-checkDigits = check "digits"
-    [ 5 `digits` 123456789 == 12345
-    , 10 `digits` 123456789 == 123456789
+checkDigitsOf :: IO ()
+checkDigitsOf = check "digitsOf"
+    [ 5 `digitsOf` 123456789 == 12345
+    , 10 `digitsOf` 123456789 == 123456789
     ]
 
 test :: IO ()
 test = do
     checkToDigits
     checkFromDigits
-    checkDigits
+    checkDigitsOf
 
 main :: IO ()
 main = do
     s <- readFile "13.txt"
     ss <- return (lines s)
     ns <- return (map read ss)
-    print (10 `digits` (sum ns))
+    print (10 `digitsOf` (sum ns))
