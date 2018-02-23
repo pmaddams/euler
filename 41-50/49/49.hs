@@ -94,6 +94,17 @@ primePermutations n =
         ns = nub (sort (map fromDigits ds))
     in filter smallPrime ns
 
+digitPermutationOf :: Int -> Int -> Bool
+m `digitPermutationOf` n =
+    let d' = sort . toDigits
+    in d' m == d' n
+
+checkDigitPermutationOf :: IO ()
+checkDigitPermutationOf = check "digitPermutationOf"
+    [ 123 `digitPermutationOf` 321
+    , not (123 `digitPermutationOf` 311)
+    ]
+
 primePermutationSequence :: Int -> Maybe (Int, Int, Int)
 primePermutationSequence = p' . primePermutations
   where
@@ -108,7 +119,7 @@ primePermutationSequence = p' . primePermutations
     p'' n (n':ns') =
         let n'' = 2*n' - n
         in if smallPrime n'' &&
-              sort (toDigits n) == sort (toDigits n'')
+              n `digitPermutationOf` n''
            then Just (n, n', n'')
            else p'' n ns'
 
@@ -128,6 +139,7 @@ test = do
     checkToDigits
     checkFromDigits
     checkUniqueDigits
+    checkDigitPermutationOf
 
 main :: IO ()
 main =
