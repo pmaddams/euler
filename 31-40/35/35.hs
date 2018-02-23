@@ -117,5 +117,5 @@ test = do
 
 main :: IO ()
 main =
-    let ps = takeWhile (<1000000) primes
+    let ps = takeWhile (< 1000000) primes
     in print (length (filter primeRotations ps))
