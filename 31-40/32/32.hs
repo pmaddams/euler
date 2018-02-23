@@ -24,8 +24,8 @@ checkFromDigits = check "fromDigits"
     , fromDigits [9,8..1] == 987654321
     ]
 
-productsPD :: [(Int, Int, Int)]
-productsPD =
+pandigitalProducts :: [(Int, Int, Int)]
+pandigitalProducts =
     [ (m1, m2, p)
     | ns <- permutations [1..9]
     , let (lo, hi) = splitAt 5 ns
@@ -43,4 +43,4 @@ test = do
     checkFromDigits
 
 main :: IO ()
-main = print (sum (nub [p | (_,_,p) <- productsPD]))
+main = print (sum (nub [p | (_,_,p) <- pandigitalProducts]))

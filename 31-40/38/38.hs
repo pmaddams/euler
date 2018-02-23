@@ -25,8 +25,8 @@ checkFromDigits = check "fromDigits"
     , fromDigits [9,8..1] == 987654321
     ]
 
-maybeMultiplePD :: Int -> Maybe Int
-maybeMultiplePD n =
+maybePandigitalMultiple :: Int -> Maybe Int
+maybePandigitalMultiple n =
     if n < 1
     then Nothing
     else m' 1 []
@@ -40,19 +40,19 @@ maybeMultiplePD n =
            then Just (fromDigits acc')
            else Nothing
 
-checkMaybeMultiplePD :: IO ()
-checkMaybeMultiplePD = check "maybeMultiplePD"
-    [ maybeMultiplePD 192 == Just 192384576
-    , maybeMultiplePD 9 == Just 918273645
+checkMaybePandigitalMultiple :: IO ()
+checkMaybePandigitalMultiple = check "maybePandigitalMultiple"
+    [ maybePandigitalMultiple 192 == Just 192384576
+    , maybePandigitalMultiple 9 == Just 918273645
     ]
 
 test :: IO ()
 test = do
     checkToDigits
     checkFromDigits
-    checkMaybeMultiplePD
+    checkMaybePandigitalMultiple
 
 main :: IO ()
 main =
-    let multiplesPD = catMaybes (map maybeMultiplePD [1..9999])
-    in print (maximum multiplesPD)
+    let ms = map maybePandigitalMultiple [1..9999]
+    in print (maximum (catMaybes ms))
