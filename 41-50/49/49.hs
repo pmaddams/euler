@@ -95,9 +95,9 @@ primePermutations n =
     in filter smallPrime ns
 
 digitPermutationOf :: Int -> Int -> Bool
-m `digitPermutationOf` n =
+n `digitPermutationOf` m =
     let d' = sort . toDigits
-    in d' m == d' n
+    in d' n == d' m
 
 checkDigitPermutationOf :: IO ()
 checkDigitPermutationOf = check "digitPermutationOf"
@@ -119,7 +119,7 @@ primePermutationSequence = p' . primePermutations
     p'' n (n':ns') =
         let n'' = 2*n' - n
         in if smallPrime n'' &&
-              n `digitPermutationOf` n''
+              n'' `digitPermutationOf` n
            then Just (n, n', n'')
            else p'' n ns'
 
