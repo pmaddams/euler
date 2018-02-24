@@ -68,8 +68,8 @@ consecutivePrimesFrom ps =
 
 consecutivePrimes :: [Int] -> [(Int, Int)]
 consecutivePrimes []     = []
-consecutivePrimes (p:ps) =
-    consecutivePrimesFrom (p:ps) : consecutivePrimes ps
+consecutivePrimes ps@(_:ps') =
+    consecutivePrimesFrom ps : consecutivePrimes ps'
 
 test :: IO ()
 test = do
