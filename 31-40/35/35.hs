@@ -48,17 +48,17 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 toDigits :: Integral a => a -> [Int]
@@ -100,7 +100,7 @@ primeRotations n =
     let ds = toDigits n
     in length ds == 1 ||
        not (any (\d -> d `elem` ds) [0,2,4,5,6,8]) &&
-       and (map (smallPrime . fromDigits) (rotations ds))
+       and (map (prime . fromDigits) (rotations ds))
 
 checkPrimeRotations :: IO ()
 checkPrimeRotations = check "primeRotations"
@@ -112,7 +112,7 @@ test :: IO ()
 test = do
     checkPrimes
     checkModExp
-    checkSmallPrime
+    checkPrime
     checkToDigits
     checkFromDigits
     checkRotations

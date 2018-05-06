@@ -50,17 +50,17 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 toDigits :: Integral a => a -> [Int]
@@ -95,7 +95,7 @@ primePermutations :: Int -> [Int]
 primePermutations n =
     let ds = permutations (toDigits n)
         ns = nub (sort (map fromDigits ds))
-    in filter smallPrime ns
+    in filter prime ns
 
 digitPermutationOf :: Int -> Int -> Bool
 n `digitPermutationOf` m =
@@ -121,7 +121,7 @@ primePermutationSequence = p' . primePermutations
     p'' n []       = Nothing
     p'' n (n':ns') =
         let n'' = 2*n' - n
-        in if smallPrime n'' &&
+        in if prime n'' &&
               n'' `digitPermutationOf` n
            then Just (n, n', n'')
            else p'' n ns'
@@ -138,7 +138,7 @@ test :: IO ()
 test = do
     checkPrimes
     checkModExp
-    checkSmallPrime
+    checkPrime
     checkToDigits
     checkFromDigits
     checkUniqueDigits

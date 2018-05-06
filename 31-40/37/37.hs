@@ -48,17 +48,17 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 toDigits :: Integral a => a -> [Int]
@@ -80,7 +80,7 @@ checkFromDigits = check "fromDigits"
     ]
 
 truncatable :: Int -> Bool
-truncatable n = smallPrime n &&
+truncatable n = prime n &&
     let ds = toDigits n
     in length ds > 1 &&
        t' ds [] (reverse ds) []
@@ -89,8 +89,8 @@ truncatable n = smallPrime n &&
     t' (f:fs) fa (r:rs) ra =
         let fa' = fa ++ [f]
             ra' = r : ra
-        in smallPrime (fromDigits fa') &&
-           smallPrime (fromDigits ra') &&
+        in prime (fromDigits fa') &&
+           prime (fromDigits ra') &&
            t' fs fa' rs ra'
 
 checkTruncatable :: IO ()
@@ -103,7 +103,7 @@ test :: IO ()
 test = do
     checkPrimes
     checkModExp
-    checkSmallPrime
+    checkPrime
     checkToDigits
     checkFromDigits
     checkTruncatable

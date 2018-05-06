@@ -30,17 +30,17 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 sumOfPrimeAndDoubleSquare :: Int -> Bool
@@ -50,7 +50,7 @@ sumOfPrimeAndDoubleSquare n =
   where
     s' _ []     = False
     s' n (d:ds) =
-       if smallPrime (n-d)
+       if prime (n-d)
        then True
        else s' n ds
 
@@ -63,13 +63,13 @@ checkSumOfPrimeAndDoubleSquare = check "sumOfPrimeAndDoubleSquare"
 test :: IO ()
 test = do
     checkModExp
-    checkSmallPrime
+    checkPrime
     checkSumOfPrimeAndDoubleSquare
 
 main :: IO ()
 main = print $ head $
     [ n
     | n <- [3,5..]
-    , not (smallPrime n)
+    , not (prime n)
     , not (sumOfPrimeAndDoubleSquare n)
     ]

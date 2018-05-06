@@ -49,17 +49,17 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 maximumAB :: (Int, Int)
@@ -67,8 +67,8 @@ maximumAB = fst $ maximumBy (comparing snd) $
     [ ((a, b), len)
     | b <- takeWhile (< 1000) (dropWhile (< 41) primes)
     , a <- [(2-b)..min (b-40) 1000]
-    , smallPrime (1 + a + b)
-    , let len = length $ takeWhile smallPrime
+    , prime (1 + a + b)
+    , let len = length $ takeWhile prime
               [n^2 + a*n + b | n <- [2..1000]]
     ]
 
@@ -76,7 +76,7 @@ test :: IO ()
 test = do
     checkPrimes
     checkModExp
-    checkSmallPrime
+    checkPrime
 
 main :: IO ()
 main =

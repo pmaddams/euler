@@ -49,24 +49,24 @@ millerRabin n (a:as) =
     modExp a (n-1) n == 1 &&
     millerRabin n as
 
-smallPrime :: Int -> Bool
-smallPrime n = n > 1 &&
+prime :: Integral a => a -> Bool
+prime n = n > 1 &&
     let ps = [2,3,5,7]
     in n `elem` ps ||
        all (\p -> n `mod` p /= 0) ps &&
        millerRabin (toInteger n) (map toInteger ps)
 
-checkSmallPrime :: IO ()
-checkSmallPrime = check "smallPrime"
-    [ all smallPrime [2,3,5,7,11,13]
-    , not (any smallPrime [-1,0,1,4,9])
+checkPrime :: IO ()
+checkPrime = check "prime"
+    [ all prime [2,3,5,7,11,13]
+    , not (any prime [-1,0,1,4,9])
     ]
 
 consecutivePrimesFrom :: [Int] -> (Int, Int)
 consecutivePrimesFrom [] = (0, 0)
 consecutivePrimesFrom ps =
     let ss = takeWhile (< 1000000) (scanl1 (+) ps)
-        cs = dropWhile (not . smallPrime) (reverse ss)
+        cs = dropWhile (not . prime) (reverse ss)
     in (head cs, length cs)
 
 consecutivePrimes :: [Int] -> [(Int, Int)]
@@ -78,7 +78,7 @@ test :: IO ()
 test = do
     checkPrimes
     checkModExp
-    checkSmallPrime
+    checkPrime
 
 main :: IO ()
 main =
