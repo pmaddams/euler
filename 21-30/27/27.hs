@@ -44,10 +44,7 @@ checkModExp = check "modExp"
     ]
 
 millerRabin :: Integer -> [Integer] -> Bool
-millerRabin n []     = True
-millerRabin n (a:as) =
-    modExp a (n-1) n == 1 &&
-    millerRabin n as
+millerRabin n as = foldr (\a b -> b && modExp a (n-1) n == 1) True as
 
 prime :: Integral a => a -> Bool
 prime n = n > 1 &&
