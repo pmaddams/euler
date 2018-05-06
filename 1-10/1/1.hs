@@ -1,3 +1,5 @@
+module Main where
+
 import Control.Exception
 
 check :: String -> [Bool] -> IO ()

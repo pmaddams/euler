@@ -1,3 +1,5 @@
+module Main where
+
 import Control.Exception
 import qualified Data.Map as M
 

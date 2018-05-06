@@ -1,3 +1,5 @@
+module Main where
+
 import Control.Exception
 import Data.Array
 import Data.List
