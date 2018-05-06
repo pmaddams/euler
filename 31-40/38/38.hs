@@ -1,6 +1,5 @@
 module Main where
 
-import Control.Exception
 import Data.Char
 import Data.List
 import Data.Maybe

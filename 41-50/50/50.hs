@@ -1,6 +1,5 @@
 module Main where
 
-import Control.Exception
 import Data.List
 import Data.Ord
 import qualified Data.Map as M

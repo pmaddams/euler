@@ -1,6 +1,5 @@
 module Main where
 
-import Control.Exception
 import Data.List
 
 check :: String -> [Bool] -> IO ()
