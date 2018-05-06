@@ -1,10 +1,10 @@
 module Main where
 
-import Control.Exception
-
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 mergeRows :: [Int] -> [Int] -> [Int]
 mergeRows upper lower = zipWith3 best upper lower (tail lower)

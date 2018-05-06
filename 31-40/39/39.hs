@@ -5,8 +5,10 @@ import Data.List
 import Data.Ord
 
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 primitiveTriples :: [(Int, Int, Int)]
 primitiveTriples =

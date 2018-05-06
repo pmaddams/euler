@@ -6,8 +6,10 @@ import Data.Ord
 import qualified Data.Map as M
 
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 primes :: Integral a => [a]
 primes = sieve [2..] M.empty

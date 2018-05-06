@@ -1,10 +1,10 @@
 module Main where
 
-import Control.Exception
-
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 pentagons :: [Int]
 pentagons = [n*(3*n-1) `div` 2 | n <- [1..]]

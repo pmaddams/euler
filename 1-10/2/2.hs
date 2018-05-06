@@ -1,10 +1,10 @@
 module Main where
 
-import Control.Exception
-
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 fibonacci :: [Integer]
 fibonacci = 1 : 1 : zipWith (+) fibonacci (tail fibonacci)

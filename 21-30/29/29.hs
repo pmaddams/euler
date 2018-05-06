@@ -4,8 +4,10 @@ import Control.Exception
 import Data.List
 
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 powers :: [Integer] -> [Integer] -> [Integer]
 powers as bs = nub . sort $

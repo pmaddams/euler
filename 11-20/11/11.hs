@@ -4,8 +4,10 @@ import Control.Exception
 import Data.Char
 
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 horProds :: Int -> [[Int]] -> [Int]
 horProds _ []         = []

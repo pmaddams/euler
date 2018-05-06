@@ -1,10 +1,10 @@
 module Main where
 
-import Control.Exception
-
 check :: String -> [Bool] -> IO ()
-check name tests = assert (and tests) $
-    putStrLn (name ++ ": tests passed")
+check name tests =
+    if not (and tests)
+    then error name
+    else return ()
 
 divisibleAny :: Integral a => a -> [a] -> Bool
 n `divisibleAny` ds = any (\d -> n `mod` d == 0) ds
