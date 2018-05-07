@@ -1,8 +1,8 @@
 module Main where
 
 import Data.List
-import Data.Ord
 import qualified Data.Map as M
+import Data.Ord
 
 check :: String -> [Bool] -> IO ()
 check name tests =
