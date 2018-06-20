@@ -4,9 +4,9 @@ import Data.List
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 powers :: [Integer] -> [Integer] -> [Integer]
 powers as bs = nub . sort $

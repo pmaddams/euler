@@ -2,9 +2,9 @@ module Main where
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 mergeRows :: [Int] -> [Int] -> [Int]
 mergeRows upper lower = zipWith3 best upper lower (tail lower)

@@ -6,9 +6,9 @@ import Data.Ord
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 collatz :: Int -> [Int]
 collatz n

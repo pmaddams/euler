@@ -4,9 +4,9 @@ import Data.Char
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 isSumOfPowers :: Int -> Int -> Bool
 isSumOfPowers x n = s' (map digitToInt (show n)) 0

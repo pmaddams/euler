@@ -2,9 +2,9 @@ module Main where
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 divisibleAny :: Integral a => a -> [a] -> Bool
 n `divisibleAny` ds = any (\d -> n `mod` d == 0) ds

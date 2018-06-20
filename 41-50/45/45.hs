@@ -4,9 +4,9 @@ import Data.List
 
 check :: String -> [Bool] -> IO ()
 check name tests =
-    if not (and tests)
-    then error name
-    else return ()
+    if and tests
+    then return ()
+    else error name
 
 hexagons :: [Int]
 hexagons = [n*(2*n-1) | n <- [1..]]
