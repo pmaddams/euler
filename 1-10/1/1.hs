@@ -6,19 +6,35 @@ check name tests =
     then return ()
     else error name
 
-divisibleAny :: Integral a => a -> [a] -> Bool
-n `divisibleAny` ds = any (\d -> n `mod` d == 0) ds
+anyOf :: [(a -> Bool)] -> a -> Bool
+anyOf fs x = or (fs <*> (pure x))
 
-checkDivisibleAny :: IO ()
-checkDivisibleAny = check "divisibleAny"
-    [ not (5 `divisibleAny` [2,3])
-    , 5 `divisibleAny` [2,3,5]
+checkAnyOf :: IO ()
+checkAnyOf =
+    let fs = [(== 3), (== 5)]
+    in check "anyOf"
+        [ anyOf fs 3
+        , anyOf fs 5
+        , not (anyOf fs 6)
+        ]
+
+divis :: Integral a => a -> a -> Bool
+n `divis` d = n `rem` d == 0
+
+checkDivis :: IO ()
+checkDivis = check "divis"
+    [ 6 `divis` 3
+    , 10 `divis` 5
+    , not (10 `divis` 3)
     ]
 
 test :: IO ()
-test = checkDivisibleAny
+test = do
+    checkAnyOf
+    checkDivis
 
 main :: IO ()
 main =
-    let multiples = filter (`divisibleAny` [3,5]) [1..]
-    in print (sum (takeWhile (< 1000) multiples))
+    let fs = [(`divis` 3), (`divis` 5)]
+        ns = takeWhile (< 1000) [1..]
+    in print (sum (filter (anyOf fs) ns))
