@@ -7,7 +7,7 @@ check name tests =
     else error name
 
 anyOf :: [(a -> Bool)] -> a -> Bool
-anyOf fs x = or (fs <*> (pure x))
+anyOf fs x = or (fs <*> pure x)
 
 checkAnyOf :: IO ()
 checkAnyOf =
