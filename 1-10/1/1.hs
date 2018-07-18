@@ -36,5 +36,5 @@ test = do
 main :: IO ()
 main =
     let fs = [(`divis` 3), (`divis` 5)]
-        ns = takeWhile (< 1000) [1..]
-    in print (sum (filter (anyOf fs) ns))
+        ns = filter (anyOf fs) [1..999]
+    in print (sum ns)
