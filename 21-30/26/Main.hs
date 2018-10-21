@@ -3,11 +3,11 @@ module Main where
 import Data.List
 import Data.Ord
 
-remainders :: Int -> [Int]
-remainders d = iterate (\r -> (10*r) `rem` d) 1
+rems :: Int -> [Int]
+rems d = iterate (\r -> (10*r) `rem` d) 1
 
 cycleLength :: Int -> Int
-cycleLength d = c' (remainders d) []
+cycleLength d = c' (rems d) []
   where
     c' (0:rs) _    = 0
     c' (r:rs) seen = case (elemIndex r seen) of

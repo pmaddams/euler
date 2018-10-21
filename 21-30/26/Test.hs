@@ -8,10 +8,10 @@ test name cases =
     then return ()
     else error name
 
-testRemainders :: IO ()
-testRemainders = test "remainders"
-    [ take 3 (remainders 6) == [1,4,4]
-    , take 7 (remainders 7) == [1,3,2,6,4,5,1]
+testRems :: IO ()
+testRems = test "rems"
+    [ take 3 (rems 6) == [1,4,4]
+    , take 7 (rems 7) == [1,3,2,6,4,5,1]
     ]
 
 testCycleLength :: IO ()
@@ -22,5 +22,5 @@ testCycleLength = test "cycleLength"
 
 main :: IO ()
 main = do
-    testRemainders
+    testRems
     testCycleLength
