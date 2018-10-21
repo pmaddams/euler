@@ -1,7 +1,7 @@
 module Main where
 
 anyOf :: [(a -> Bool)] -> a -> Bool
-anyOf fs x = or (fs <*> pure x)
+anyOf fs x = any (\f -> f x) fs
 
 divis :: Integral a => a -> a -> Bool
 n `divis` d = n `rem` d == 0
