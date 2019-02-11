@@ -1,4 +1,4 @@
--- 7. 10001st prime
+-- 10. Summation of primes
 
 module Main where
 
