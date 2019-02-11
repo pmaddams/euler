@@ -6,7 +6,6 @@ main :: IO ()
 main = do
     testFactors
     testPrimes
-    testPrime
     testDivisible
 
 testFactors :: IO ()
@@ -21,12 +20,6 @@ testPrimes :: IO ()
 testPrimes = test "primes"
     [ take 5 primes == [2,3,5,7,11]
     , primes !! 99 == 541
-    ]
-
-testPrime :: IO ()
-testPrime = test "prime"
-    [ all prime [2,3,5,7,11]
-    , filter prime [21,22,23,24,25] == [23]
     ]
 
 testDivisible :: IO ()

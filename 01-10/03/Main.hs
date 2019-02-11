@@ -2,6 +2,8 @@
 
 module Main where
 
+import qualified Data.Map as M
+
 main :: IO ()
 main = print (last (factors 600851475143))
 
@@ -15,10 +17,14 @@ factors n = loop n primes
         | otherwise     = loop n ps'
 
 primes :: Integral a => [a]
-primes = 2 : filter prime [3,5..]
-
-prime :: Integral a => a -> Bool
-prime n = length (factors n) == 1
+primes = loop [2..] M.empty
+  where
+    loop (n:ns) m = case (M.lookup n m) of
+        Nothing -> let m' = M.insert (n^2) [n] m
+                   in n : loop ns m'
+        Just ps -> let f p = M.insertWith (++) (n+p) [p]
+                       m' = foldr f (M.delete n m) ps
+                   in loop ns m'
 
 divisible :: Integral a => a -> a -> Bool
 divisible n d = rem n d == 0
