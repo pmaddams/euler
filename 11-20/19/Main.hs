@@ -10,7 +10,7 @@ data Month
 
 data Day
     = Sun | Mon | Tue | Wed | Thu | Fri | Sat
-  deriving (Enum, Eq, Ord)
+  deriving (Enum, Eq)
 
 main :: IO ()
 main = print (length (filter (== Sun) ds))
