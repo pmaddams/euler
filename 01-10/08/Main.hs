@@ -18,6 +18,6 @@ adjacent n xs@(_:xs') =
        else ys : adjacent n xs'
 
 readDigits :: FilePath -> IO [Int]
-readDigits name = readFile name >>= digits
+readDigits name = readFile name >>= f
   where
-    digits = return . map digitToInt . filter isDigit
+    f = return . map digitToInt . filter isDigit
