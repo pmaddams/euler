@@ -24,19 +24,14 @@ toWords :: Int -> [String]
 toWords n
     | n < 0     = "Negative" : toWords (-n)
     | n == 0    = []
-    | n < 20    = [show (ones n)]
-    | n < 100   = [show (tens n)] ++ toWords (rem n 10)
+    | n < 20    = [show ([One .. Nineteen] !! (n - 1))]
+    | n < 100   = let (begin, end) = quotRem n 10
+                  in [show ([Twenty .. Ninety] !! (begin - 2))] ++ toWords end
     | n < 10^3  = bigWords n Hundred
     | n < 10^6  = bigWords n Thousand
     | n < 10^9  = bigWords n Million
     | n < 10^12 = bigWords n Billion
     | otherwise = error "toWords: too big"
-
-ones :: Int -> Quantity
-ones n = toEnum ([(fromEnum One)..(fromEnum Nineteen)] !! (n - 1))
-
-tens :: Int -> Quantity
-tens n = toEnum ([(fromEnum Twenty)..(fromEnum Ninety)] !! ((quot n 10) - 2))
 
 bigWords :: Int -> Quantity -> [String]
 bigWords n q =
