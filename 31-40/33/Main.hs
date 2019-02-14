@@ -10,9 +10,9 @@ data Fraction = F {numer, denom :: Integer}
 instance Num Fraction where
     fromInteger n = F n 1
 
-    (F n1 d1) + (F n2 d2) = F (n1*d2 + n2*d1) (d1*d2)
+    (F n1 d1) + (F n2 d2) = simplify (F (n1*d2 + n2*d1) (d1*d2))
 
-    (F n1 d1) * (F n2 d2) = F (n1*n2) (d1*d2)
+    (F n1 d1) * (F n2 d2) = simplify (F (n1*n2) (d1*d2))
 
     negate (F n d) = F (-n) d
 
@@ -34,7 +34,7 @@ main = print $
             n <- takeWhile (< d) ds
             return (F n d)
         cs = filter cancelling fs
-    in denom (simplify (product cs))
+    in denom (product cs)
 
 cancelling :: Fraction -> Bool
 cancelling f = any (== f) (cancelDigits f)
