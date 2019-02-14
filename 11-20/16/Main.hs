@@ -9,5 +9,5 @@ main = print (sum ds)
   where
     ds = toDigits (2^1000)
 
-toDigits :: (Integral a, Show a) => a -> [Int]
-toDigits = map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral

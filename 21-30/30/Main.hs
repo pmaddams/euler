@@ -16,5 +16,5 @@ sumOfPowers n a =
   where
     f = map (^n) . toDigits
 
-toDigits :: (Integral a, Show a) => a -> [Int]
-toDigits = map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral

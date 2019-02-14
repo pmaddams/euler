@@ -10,11 +10,11 @@ main = do
     let ds = take 10 (toDigits (sum ns))
     print (fromDigits ds)
 
-toDigits :: (Integral a, Show a) => a -> [Int]
-toDigits = map digitToInt . show
+toDigits :: Integral a => a -> [Int]
+toDigits = map digitToInt . show . fromIntegral
 
-fromDigits :: (Integral a, Read a) => [Int] -> a
-fromDigits = read . map intToDigit
+fromDigits :: Integral a => [Int] -> a
+fromDigits = fromIntegral . read . map intToDigit
 
 readNumbers :: (Integral a, Read a) => FilePath -> IO [a]
 readNumbers name = readFile name >>= f
