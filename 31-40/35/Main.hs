@@ -24,7 +24,11 @@ rotations xs = take (length xs) (loop xs)
     loop xs@(x:xs') = xs : loop (xs' ++ [x])
 
 prime :: Integral a => a -> Bool
-prime = (== 1) . length . factors
+prime n =
+    let ps = [2,3,5]
+    in elem n ps ||
+       not (anyDivisible n ps) &&
+       length (factors n) == 1
 
 factors :: Integral a => a -> [a]
 factors n = loop n primes
@@ -44,6 +48,9 @@ primes = loop [2..] M.empty
         Just ps -> let f p = M.insertWith (++) (n+p) [p]
                        m' = foldr f (M.delete n m) ps
                    in loop ns m'
+
+anyDivisible :: Integral a => a -> [a] -> Bool
+anyDivisible = any . divisible
 
 divisible :: Integral a => a -> a -> Bool
 divisible n d = rem n d == 0

@@ -8,6 +8,7 @@ main = do
     testPrime
     testFactors
     testPrimes
+    testAnyDivisible
     testDivisible
     testToDigits
     testFromDigits
@@ -44,6 +45,14 @@ testDivisible = test "divisible"
     , not (divisible 7 3)
     , divisible 10 5
     , not (divisible 13 7)
+    ]
+
+testAnyDivisible :: IO ()
+testAnyDivisible = test "anyDivisible"
+    [ anyDivisible 4 [2]
+    , not (anyDivisible 7 [2, 3])
+    , anyDivisible 10 [2, 3, 5]
+    , not (anyDivisible 13 [2, 3, 5, 7])
     ]
 
 testToDigits :: IO ()
