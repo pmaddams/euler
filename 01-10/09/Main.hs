@@ -15,16 +15,12 @@ triplets :: Integral a => [[a]]
 triplets = do
     t <- [2..]
     s <- [1..t-1]
-    let q = 2*s*t
-        r = isqrt q
-    guard (r^2 == q)
-    return [r+s, r+t, r+s+t]
+    let r = unsquare (2*s*t)
+    maybe [] (\r -> return [r+s, r+t, r+s+t]) r
 
-isqrt :: Integral a => a -> a
-isqrt 0 = 0
-isqrt n =
-    let r1 = 2 * isqrt (quot n 4)
-        r2 = r1 + 1
-    in if r2^2 > n
-       then r1
-       else r2
+unsquare :: Integral a => a -> Maybe a
+unsquare n =
+     let (i, f) = properFraction (sqrt (fromIntegral n))
+     in case f of
+            0 -> if i < 0 then Nothing else Just i
+            _ -> Nothing

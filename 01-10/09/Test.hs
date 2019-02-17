@@ -1,11 +1,13 @@
 module Test where
 
+import Data.Maybe
+
 import Main hiding (main)
 
 main :: IO ()
 main = do
     testTriplets
-    testIsqrt
+    testUnsquare
 
 testTriplets :: IO ()
 testTriplets = test "triplets"
@@ -13,10 +15,10 @@ testTriplets = test "triplets"
     , all (\(a:b:c:_) -> a^2 + b^2 == c^2) (take 10 triplets)
     ]
 
-testIsqrt :: IO ()
-testIsqrt = test "isqrt"
-    [ let ns = [1..10] in map (isqrt . (^2)) ns == ns
-    , all (\n -> (isqrt n)^2 <= n) [1..10]
+testUnsquare :: IO ()
+testUnsquare = test "unsquare"
+    [ let ns = [0..10] in map (fromJust . unsquare . (^2)) ns == ns
+    , all isNothing (map unsquare ([-1,2,3,5,6,7,8,10]))
     ]
 
 test :: String -> [Bool] -> IO ()
