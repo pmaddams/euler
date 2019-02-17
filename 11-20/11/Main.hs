@@ -6,7 +6,9 @@ import Control.Monad
 import Data.Array
 
 type Coordinate = (Int, Int)
+
 type Direction = Coordinate -> Coordinate
+
 type Grid a = Array Coordinate a
 
 main :: IO ()
