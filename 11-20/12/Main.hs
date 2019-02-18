@@ -1,4 +1,4 @@
--- 12. Highly divisible triangular numbers
+-- 12. Highly divisible triangular number
 
 module Main where
 
