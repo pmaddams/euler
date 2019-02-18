@@ -12,7 +12,7 @@ main = do
 testTriplets :: IO ()
 testTriplets = test "triplets"
     [ all (`elem` triplets) [[3,4,5], [6,8,10], [5,12,13]]
-    , all (\(a:b:c:_) -> a^2 + b^2 == c^2) (take 10 triplets)
+    , all (\[a,b,c] -> a^2 + b^2 == c^2) (take 10 triplets)
     ]
 
 testUnsquare :: IO ()
