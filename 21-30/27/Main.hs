@@ -8,13 +8,13 @@ import qualified Data.Map as M
 import Data.Ord
 
 main :: IO ()
-main = print $
-    let ps = do
-            b <- takeWhile (< 1000) (dropWhile (< 40) primes)
-            a <- [2-b..min 1000 (b-40)]
-            guard (prime (1 + a + b))
-            return ((a, b), length (quadraticPrimes a b))
-        in uncurry (*) (best ps)
+main = print (a * b)
+  where
+    (a, b) = best $ do
+        b <- takeWhile (< 1000) (dropWhile (< 40) primes)
+        a <- [2-b..min 1000 (b-40)]
+        guard (prime (1 + a + b))
+        return ((a, b), length (quadraticPrimes a b))
 
 quadraticPrimes :: Integral a => a -> a -> [a]
 quadraticPrimes a b = takeWhile prime [n^2 + a*n + b | n <- [0..]]
