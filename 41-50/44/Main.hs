@@ -7,12 +7,12 @@ import Control.Monad
 main :: IO ()
 main = print $
     let ds = do
-        k <- pentagonals
-        j <- takeWhile (< k) pentagonals
-        let d = k - j
-            s = k + j
-        guard (all pentagonal [d,s])
-        return d
+            k <- pentagonals
+            j <- takeWhile (< k) pentagonals
+            let d = k - j
+                s = k + j
+            guard (all pentagonal [d,s])
+            return d
     in (head ds)
 
 pentagonals :: Integral a => [a]

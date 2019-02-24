@@ -9,9 +9,9 @@ import Data.Ord
 main :: IO ()
 main = print $
     let ps = do
-        p <- takeWhile (<= 1000) perimeters
-        p' <- takeWhile (<= 1000) (iterate (+p) p)
-        return p'
+            p <- takeWhile (<= 1000) perimeters
+            p' <- takeWhile (<= 1000) (iterate (+p) p)
+            return p'
     in best (counts ps)
 
 perimeters :: Integral a => [a]
