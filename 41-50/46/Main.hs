@@ -9,7 +9,7 @@ import Data.Maybe
 main :: IO ()
 main = print (fromJust (find (not . sumPrimeTwiceSquare) ns))
   where
-    ns = [3,5..] `minus` primes
+    ns = [3,5..] `without` primes
 
 sumPrimeTwiceSquare :: Integral a => a -> Bool
 sumPrimeTwiceSquare n =
@@ -22,13 +22,13 @@ sumPrimeTwiceSquare n =
 twiceSquares :: Integral a => [a]
 twiceSquares = map ((*2) . (^2)) [1..]
 
-minus :: Ord a => [a] -> [a] -> [a]
-[] `minus` _    = []
-xs `minus` []   = xs
-xs@(x:xs') `minus` ys@(y:ys')
-    | x < y     = x : xs' `minus` ys
-    | x > y     = xs `minus` ys'
-    | otherwise = xs' `minus` ys'
+without :: Ord a => [a] -> [a] -> [a]
+[] `without` _  = []
+xs `without` [] = xs
+xs@(x:xs') `without` ys@(y:ys')
+    | x < y     = x : xs' `without` ys
+    | x > y     = xs `without` ys'
+    | otherwise = xs' `without` ys'
 
 prime :: Integral a => a -> Bool
 prime n =

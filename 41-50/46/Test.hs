@@ -5,7 +5,7 @@ import Main hiding (main)
 main :: IO ()
 main = do
     testSumPrimeTwiceSquare
-    testMinus
+    testWithout
     testPrime
     testFactors
     testPrimes
@@ -17,10 +17,10 @@ testSumPrimeTwiceSquare = test "sumPrimeTwiceSquare"
     [ all sumPrimeTwiceSquare [9,15,21,25,27,33]
     ]
 
-testMinus :: IO ()
-testMinus = test "minus"
-    [ [1..10] `minus` [2,4..10] == [1,3..9]
-    , [1..10] `minus` [1,3..9] == [2,4..10]
+testWithout :: IO ()
+testWithout = test "without"
+    [ [1..10] `without` [2,4..10] == [1,3..9]
+    , [1..10] `without` [1,3..9] == [2,4..10]
     ]
 
 testPrime :: IO ()
