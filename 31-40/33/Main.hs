@@ -5,6 +5,16 @@ module Main where
 import Data.Char
 import Data.List
 
+main :: IO ()
+main = print $
+    let ds = filter (not . (`divisible` 10)) [11..99]
+        fs = do
+            d <- ds
+            n <- takeWhile (< d) ds
+            return (F n d)
+        cs = filter cancelling fs
+    in denom (product cs)
+
 data Fraction = F {numer, denom :: Integer}
 
 instance Num Fraction where
@@ -26,15 +36,14 @@ instance Eq Fraction where
             (F n2 d2) = simplify f2
         in n1 == n2 && d1 == d2
 
-main :: IO ()
-main = print $
-    let ds = filter (not . (`divisible` 10)) [11..99]
-        fs = do
-            d <- ds
-            n <- takeWhile (< d) ds
-            return (F n d)
-        cs = filter cancelling fs
-    in denom (product cs)
+simplify :: Fraction -> Fraction
+simplify (F n d) =
+    let g = gcd n d
+        n' = quot n g
+        d' = quot d g
+    in if d' < 0
+       then F (-n') (-d')
+       else F n' d'
 
 cancelling :: Fraction -> Bool
 cancelling f = any (== f) (cancelDigits f)
@@ -47,15 +56,6 @@ cancelDigits (F n d) =
           let n' = fromDigits (delete nd nds)
               d' = fromDigits (delete nd dds)
           return (F n' d')
-
-simplify :: Fraction -> Fraction
-simplify (F n d) =
-    let g = gcd n d
-        n' = quot n g
-        d' = quot d g
-    in if d' < 0
-       then F (-n') (-d')
-       else F n' d'
 
 divisible :: Integral a => a -> a -> Bool
 divisible n d = rem n d == 0

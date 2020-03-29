@@ -17,6 +17,11 @@ main = do
         | w > t  = loop cs ts'
         | w == t = n + loop cs' ts'
 
+readCSV :: Read a => FilePath -> IO [a]
+readCSV name = do
+    s <- readFile name
+    return (read ("[" ++ s ++ "]"))
+
 wordScore :: String -> Int
 wordScore = sum . map letterScore
 
@@ -34,8 +39,3 @@ counts xs@(y:_) = (y, length ys) : counts zs
 
 triangulars :: Integral a => [a]
 triangulars = scanl1 (+) [1..]
-
-readCSV :: Read a => FilePath -> IO [a]
-readCSV name = do
-    s <- readFile name
-    return (read ("[" ++ s ++ "]"))

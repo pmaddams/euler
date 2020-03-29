@@ -2,6 +2,11 @@
 
 module Main where
 
+main :: IO ()
+main = print (length (filter (== Sun) ds))
+  where
+    ds = [dayOfWeek y m 1 | y <- [1901..2000], m <- [Jan .. Dec]]
+
 type Year = Int
 
 data Month
@@ -11,11 +16,6 @@ data Month
 data Day
     = Sun | Mon | Tue | Wed | Thu | Fri | Sat
   deriving (Enum, Eq)
-
-main :: IO ()
-main = print (length (filter (== Sun) ds))
-  where
-    ds = [dayOfWeek y m 1 | y <- [1901..2000], m <- [Jan .. Dec]]
 
 dayOfWeek :: Year -> Month -> Int -> Day
 dayOfWeek y m d =

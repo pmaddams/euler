@@ -4,13 +4,6 @@ module Main where
 
 import Data.Char
 
-data Quantity
-    = One | Two | Three | Four | Five | Six | Seven | Eight | Nine
-    | Ten | Eleven | Twelve | Thirteen | Fourteen | Fifteen | Sixteen | Seventeen | Eighteen | Nineteen
-    | Twenty | Thirty | Forty | Fifty | Sixty | Seventy | Eighty | Ninety
-    | Hundred | Thousand | Million | Billion
-  deriving (Enum, Show)
-
 main :: IO ()
 main = print (length (filter isAlpha cs))
   where
@@ -32,6 +25,13 @@ toWords n
     | n < 10^9  = bigWords n Million
     | n < 10^12 = bigWords n Billion
     | otherwise = error "toWords: too big"
+
+data Quantity
+    = One | Two | Three | Four | Five | Six | Seven | Eight | Nine
+    | Ten | Eleven | Twelve | Thirteen | Fourteen | Fifteen | Sixteen | Seventeen | Eighteen | Nineteen
+    | Twenty | Thirty | Forty | Fifty | Sixty | Seventy | Eighty | Ninety
+    | Hundred | Thousand | Million | Billion
+  deriving (Enum, Show)
 
 bigWords :: Int -> Quantity -> [String]
 bigWords n q =
