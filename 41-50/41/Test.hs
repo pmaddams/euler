@@ -8,7 +8,6 @@ main = do
     testPrime
     testFactors
     testPrimes
-    testAnyDivisible
     testDivisible
     testSortReverse
     testFromDigits
@@ -36,14 +35,6 @@ testPrimes :: IO ()
 testPrimes = test "primes"
     [ take 5 primes == [2,3,5,7,11]
     , primes !! 99 == 541
-    ]
-
-testAnyDivisible :: IO ()
-testAnyDivisible = test "anyDivisible"
-    [ anyDivisible 4 [2]
-    , not (anyDivisible 7 [2, 3])
-    , anyDivisible 10 [2, 3, 5]
-    , not (anyDivisible 13 [2, 3, 5, 7])
     ]
 
 testDivisible :: IO ()

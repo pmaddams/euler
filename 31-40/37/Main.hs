@@ -20,11 +20,7 @@ truncatable n =
        all (prime . fromDigits) (forwards ++ backwards)
 
 prime :: Integral a => a -> Bool
-prime n =
-    let ps = [2,3,5]
-    in elem n ps ||
-       not (anyDivisible n ps) &&
-       length (factors n) == 1
+prime = (== 1) . length . take 2 . factors
 
 factors :: Integral a => a -> [a]
 factors n = loop n primes
@@ -44,9 +40,6 @@ primes = loop [2..] M.empty
         Just ps -> let f p = M.insertWith (++) (n+p) [p]
                        m' = foldr f (M.delete n m) ps
                    in loop ns m'
-
-anyDivisible :: Integral a => a -> [a] -> Bool
-anyDivisible = any . divisible
 
 divisible :: Integral a => a -> a -> Bool
 divisible n d = rem n d == 0
