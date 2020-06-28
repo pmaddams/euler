@@ -13,7 +13,7 @@ main = do
 testPrime :: IO ()
 testPrime = test "prime"
     [ all prime [2,3,5,7,11]
-    , not (any prime [1,4,6,8,9])
+    , not (any prime [0,1,4,9,15])
     ]
 
 testFactors :: IO ()
