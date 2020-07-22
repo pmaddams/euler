@@ -12,14 +12,12 @@ main = print $
     in best (zip ds ls)
 
 cycleLength :: Integral a => a -> Int
-cycleLength d =
-    let rs = iterate (\n -> (10*n) `rem` d) 1
-    in loop rs []
+cycleLength d = loop [] (iterate (\n -> (10*n) `rem` d) 1)
   where
-    loop (0:_) _    = 0
-    loop (r:rs) acc = case elemIndex r acc of
+    loop _ (0:_)    = 0
+    loop acc (r:rs) = case elemIndex r acc of
         Just i  -> i + 1
-        Nothing -> loop rs (r:acc)
+        Nothing -> loop (r:acc) rs
 
 best :: Ord b => [(a, b)] -> a
 best = fst . maximumBy (comparing snd)
