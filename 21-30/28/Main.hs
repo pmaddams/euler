@@ -8,8 +8,8 @@ main = print (sum ns)
     ns = takeWhile (<= 1001^2) spiral
 
 spiral :: Num a => [a]
-spiral = [1] ++ loop 1 2
+spiral = 1 : loop 1 2
   where
     loop prev size =
-        let corners = take 4 (tail (iterate (+ size) prev))
-        in corners ++ loop (last corners) (size + 2)
+        let corners = take 4 (tail (iterate (+size) prev))
+        in corners ++ loop (last corners) (size+2)
