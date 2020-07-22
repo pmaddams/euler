@@ -9,7 +9,7 @@ import Data.List
 main :: IO ()
 main = print (sum ns)
   where
-    ns = nub [ps !! 2| ps <- pandigitalProducts]
+    ns = nub [ps !! 2 | ps <- pandigitalProducts]
 
 pandigitalProducts :: Integral a => [[a]]
 pandigitalProducts = do
