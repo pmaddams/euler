@@ -5,7 +5,7 @@ import Main hiding (main)
 main :: IO ()
 main = do
     testConcatProduct
-    testUnique
+    testDistinct
     testToDigits
     testFromDigits
 
@@ -15,12 +15,12 @@ testConcatProduct = test "concatProduct"
     , concatProduct 9 == Just 918273645
     ]
 
-testUnique :: IO ()
-testUnique = test "unique"
-    [ unique [1..5]
-    , not (unique [1,2,3,2,5])
-    , unique "cat"
-    , not (unique "doog")
+testDistinct :: IO ()
+testDistinct = test "distinct"
+    [ distinct [1..5]
+    , not (distinct [1,2,3,2,5])
+    , distinct "cat"
+    , not (distinct "doog")
     ]
 
 testToDigits :: IO ()

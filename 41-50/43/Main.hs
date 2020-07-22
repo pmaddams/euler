@@ -10,7 +10,7 @@ main :: IO ()
 main = print (sum ns)
   where
     dss = map divisibleDigits [1,2,3,5,7,11,13,17]
-    ns = map fromDigits (filter unique (foldr1 mergeDigits dss))
+    ns = map fromDigits (filter distinct (foldr1 mergeDigits dss))
 
 divisibleDigits :: Integral a => a -> [[Int]]
 divisibleDigits n =
@@ -31,8 +31,8 @@ mergeDigits begins ends = concat (loop <$> begins <*> pure ends)
         then (b:es) : loop bs ess
         else loop bs ess
 
-unique :: Eq a => [a] -> Bool
-unique xs = nub xs == xs
+distinct :: Eq a => [a] -> Bool
+distinct xs = nub xs == xs
 
 toDigits :: Integral a => a -> [Int]
 toDigits = map digitToInt . show . fromIntegral

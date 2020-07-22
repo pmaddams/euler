@@ -15,10 +15,10 @@ pandigitalProducts :: Integral a => [[a]]
 pandigitalProducts = do
     b <- [123..4987]
     let bs = toDigits b
-    guard (unique bs)
+    guard (distinct bs)
     a <- [2..b-1]
     let as = toDigits a
-    guard (unique (as ++ bs))
+    guard (distinct (as ++ bs))
     let c = a * b
         cs = toDigits c
     guard (sort (as ++ bs ++ cs) == [1..9])
@@ -27,5 +27,5 @@ pandigitalProducts = do
 toDigits :: Integral a => a -> [Int]
 toDigits = map digitToInt . show . fromIntegral
 
-unique :: Eq a => [a] -> Bool
-unique xs = nub xs == xs
+distinct :: Eq a => [a] -> Bool
+distinct xs = nub xs == xs

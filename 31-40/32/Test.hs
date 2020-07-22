@@ -5,7 +5,7 @@ import Main hiding (main)
 main :: IO ()
 main = do
     testToDigits
-    testUnique
+    testDistinct
 
 testToDigits :: IO ()
 testToDigits = test "toDigits"
@@ -13,12 +13,12 @@ testToDigits = test "toDigits"
     , toDigits 987654321 == [9,8..1]
     ]
 
-testUnique :: IO ()
-testUnique = test "unique"
-    [ unique [1..5]
-    , not (unique [1,2,3,2,5])
-    , unique "cat"
-    , not (unique "doog")
+testDistinct :: IO ()
+testDistinct = test "distinct"
+    [ distinct [1..5]
+    , not (distinct [1,2,3,2,5])
+    , distinct "cat"
+    , not (distinct "doog")
     ]
 
 test :: String -> [Bool] -> IO ()

@@ -6,7 +6,7 @@ main :: IO ()
 main = do
     testDivisibleDigits
     testMergeDigits
-    testUnique
+    testDistinct
     testToDigits
     testFromDigits
 
@@ -25,12 +25,12 @@ testMergeDigits = test "mergeDigits"
           [[1,2,3,5,7],[1..7]]
     ]
 
-testUnique :: IO ()
-testUnique = test "unique"
-    [ unique [1..5]
-    , not (unique [1,2,3,2,5])
-    , unique "cat"
-    , not (unique "doog")
+testDistinct :: IO ()
+testDistinct = test "distinct"
+    [ distinct [1..5]
+    , not (distinct [1,2,3,2,5])
+    , distinct "cat"
+    , not (distinct "doog")
     ]
 
 testToDigits :: IO ()
