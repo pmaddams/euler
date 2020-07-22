@@ -16,13 +16,13 @@ main = print $
     p = (>= 4) . length
 
 factors :: Integral a => a -> [a]
-factors n = loop n primes
+factors = loop primes
   where
-    loop n ps@(p:ps')
+    loop ps@(p:ps') n
         | n < 2           = []
         | n < p^2         = [n]
-        | n `divisible` p = p : loop (n `quot` p) ps
-        | otherwise       = loop n ps'
+        | n `divisible` p = p : loop ps (n `quot` p)
+        | otherwise       = loop ps' n
 
 primes :: Integral a => [a]
 primes = loop [2..] M.empty
