@@ -22,4 +22,4 @@ sortReverse = sortBy (flip compare)
 
 products :: Num a => [a] -> [a]
 products []         = []
-products ns@(n:ns') = map (*n) ns ++ products ns'
+products ns@(n:ns') = map (n*) ns ++ products ns'
