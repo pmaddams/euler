@@ -26,10 +26,10 @@ factors :: Integral a => a -> [a]
 factors n = loop n primes
   where
     loop n ps@(p:ps')
-        | n < 2         = []
-        | n < p^2       = [n]
-        | divisible n p = p : loop (quot n p) ps
-        | otherwise     = loop n ps'
+        | n < 2           = []
+        | n < p^2         = [n]
+        | n `divisible` p = p : loop (n `quot` p) ps
+        | otherwise       = loop n ps'
 
 primes :: Integral a => [a]
 primes = loop [2..] M.empty
@@ -42,4 +42,4 @@ primes = loop [2..] M.empty
                    in loop ns m'
 
 divisible :: Integral a => a -> a -> Bool
-divisible n d = rem n d == 0
+n `divisible` d = n `rem` d == 0

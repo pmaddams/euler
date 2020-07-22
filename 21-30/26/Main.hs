@@ -13,7 +13,7 @@ main = print $
 
 cycleLength :: Integral a => a -> Int
 cycleLength d =
-    let rs = iterate (\n -> rem (10*n) d) 1
+    let rs = iterate (\n -> (10*n) `rem` d) 1
     in loop rs []
   where
     loop (0:_) _    = 0

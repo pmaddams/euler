@@ -28,7 +28,7 @@ collatz = takeUntil (== 1) . loop
     loop n =
         if odd n
         then n : loop (3*n + 1)
-        else n : loop (quot n 2)
+        else n : loop (n `quot` 2)
 
 takeUntil :: (a -> Bool) -> [a] -> [a]
 takeUntil _ []  = []

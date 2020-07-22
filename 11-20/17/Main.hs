@@ -18,7 +18,7 @@ toWords n
     | n < 0     = "Negative" : toWords (-n)
     | n == 0    = []
     | n < 20    = [show ([One .. Nineteen] !! (n - 1))]
-    | n < 100   = let (begin, end) = quotRem n 10
+    | n < 100   = let (begin, end) = n `quotRem` 10
                   in [show ([Twenty .. Ninety] !! (begin - 2))] ++ toWords end
     | n < 10^3  = bigWords n Hundred
     | n < 10^6  = bigWords n Thousand
@@ -41,6 +41,6 @@ bigWords n q =
             Million  -> 10^6
             Billion  -> 10^9
             _        -> error "bigWords: unrecognized quantity"
-        (begin, end) = quotRem n place
+        (begin, end) = n `quotRem` place
         sep = if end == 0 then "" else if end < 100 then " and" else ","
     in toWords begin ++ [show q ++ sep] ++ toWords end

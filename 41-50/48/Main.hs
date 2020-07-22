@@ -18,6 +18,6 @@ expmod a n m = loop n
     loop n =
         let n' =
              if even n
-             then (loop (quot n 2))^2
+             then (loop (n `quot` 2))^2
              else a * (loop (n-1))
         in rem n' m

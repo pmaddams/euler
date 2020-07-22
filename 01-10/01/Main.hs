@@ -11,4 +11,4 @@ anyDivisible :: Integral a => a -> [a] -> Bool
 anyDivisible = any . divisible
 
 divisible :: Integral a => a -> a -> Bool
-divisible n d = rem n d == 0
+n `divisible` d = n `rem` d == 0

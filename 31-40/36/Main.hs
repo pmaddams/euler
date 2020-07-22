@@ -18,5 +18,5 @@ toDigits = map digitToInt . show . fromIntegral
 toBits :: Integral a => a -> [Int]
 toBits 0 = []
 toBits n =
-    let (q, r) = quotRem n 2
+    let (q, r) = n `quotRem` 2
     in fromIntegral r : toBits q

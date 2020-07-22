@@ -26,10 +26,10 @@ testSimplify = test "simplify"
 
 testDivisible :: IO ()
 testDivisible = test "divisible"
-    [ divisible 4 2
-    , not (divisible 7 3)
-    , divisible 10 5
-    , not (divisible 13 7)
+    [ 4 `divisible` 2
+    , not (7 `divisible` 3)
+    , 10 `divisible` 5
+    , not (13 `divisible` 7)
     ]
 
 testToDigits :: IO ()

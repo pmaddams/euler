@@ -21,7 +21,7 @@ dayOfWeek :: Year -> Month -> Int -> Day
 dayOfWeek y m d =
     if y < 1900 || d < 1 || d > daysPerMonth y m
     then error "dayOfWeek: invalid date"
-    else toEnum (rem (fromEnum Mon + n) 7)
+    else toEnum ((fromEnum Mon + n) `rem` 7)
   where
     n = sum (map daysPerYear [1900..y-1])
         + sum (map (daysPerMonth y) (takeWhile (< m) [Jan ..]))
@@ -47,8 +47,8 @@ daysPerMonth y m =
         Dec -> 31
 
 leap :: Year -> Bool
-leap y = divisible y 4 &&
-    (divisible y 400 || not (divisible y 100))
+leap y = y `divisible` 4 &&
+    (y `divisible` 400 || not (y `divisible` 100))
 
 divisible :: Integral a => a -> a -> Bool
-divisible n d = rem n d == 0
+n `divisible` d = n `rem` d == 0

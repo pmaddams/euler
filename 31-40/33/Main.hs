@@ -39,8 +39,8 @@ instance Eq Fraction where
 simplify :: Fraction -> Fraction
 simplify (F n d) =
     let g = gcd n d
-        n' = quot n g
-        d' = quot d g
+        n' = n `quot` g
+        d' = d `quot` g
     in if d' < 0
        then F (-n') (-d')
        else F n' d'
@@ -58,7 +58,7 @@ cancelDigits (F n d) =
           return (F n' d')
 
 divisible :: Integral a => a -> a -> Bool
-divisible n d = rem n d == 0
+n `divisible` d = n `rem` d == 0
 
 toDigits :: Integral a => a -> [Int]
 toDigits = map digitToInt . show . fromIntegral
