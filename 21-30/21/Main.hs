@@ -10,10 +10,10 @@ main = print (sum (filter amicable [1..9999]))
 
 amicable :: Integral a => a -> Bool
 amicable n =
-    let m = d n
-    in n /= m && n == d m
+    let m = f n
+    in n /= m && n == f m
   where
-    d = sum . init . divisors
+    f = sum . init . divisors
 
 divisors :: Integral a => a -> [a]
 divisors n =
