@@ -23,9 +23,9 @@ nonAbundantSums = filter (not . p) ns
           in any (`S.member` s) (map (n-) ms)
 
 abundant :: Integral a => a -> Bool
-abundant n = d n > n
+abundant n = f n > n
   where
-    d = sum . init . divisors
+    f = sum . init . divisors
 
 divisors :: Integral a => a -> [a]
 divisors n =
