@@ -12,8 +12,8 @@ main = print $
     let ps = do
             b <- takeWhile (< 1000) (dropWhile (< 40) primes)
             a <- [2-b..min 1000 (b-40)]
-            guard (prime (1 + a + b))
-            return (a * b, length (quadraticPrimes a b))
+            guard (prime (a+b+1))
+            return (a*b, length (quadraticPrimes a b))
     in (best ps)
 
 quadraticPrimes :: Integral a => a -> a -> [a]
