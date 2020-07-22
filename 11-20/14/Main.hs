@@ -14,27 +14,26 @@ collatzLengthsUpTo n = assocs a
   where
     a = listArray (1, n) (map f [1..n])
 
-    f i = loop i (collatz i)
-
-    loop _ []     = 0
-    loop i (c:cs) =
-        if c < i
-        then a ! c
-        else 1 + loop i cs
+    f i = loop (collatz i)
+      where
+        loop []     = 0
+        loop (c:cs) =
+            if c < i
+            then a ! c
+            else 1 + loop cs
 
 collatz :: Integral a => a -> [a]
 collatz = takeUntil (== 1) . loop
   where
-    loop n =
+    loop n = n :
         if odd n
-        then n : loop (3*n + 1)
-        else n : loop (n `quot` 2)
+        then loop (3*n + 1)
+        else loop (n `quot` 2)
 
 takeUntil :: (a -> Bool) -> [a] -> [a]
-takeUntil _ []  = []
-takeUntil p (x:xs')
-    | p x       = [x]
-    | otherwise = x : takeUntil p xs'
+takeUntil p xs =
+    let (begin, end) = break p xs
+    in begin ++ if null end then [] else [head end]
 
 best :: Ord b => [(a, b)] -> a
 best = fst . maximumBy (comparing snd)
