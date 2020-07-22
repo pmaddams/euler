@@ -16,7 +16,7 @@ pandigitals :: [Int]
 pandigitals =
     let ds = [1..9]
         dss = take <$> ds <*> pure ds
-    in map fromDigits (concatMap permutations dss)
+    in map fromDigits (dss >>= permutations)
 
 prime :: Integral a => a -> Bool
 prime = (== 1) . length . take 2 . factors

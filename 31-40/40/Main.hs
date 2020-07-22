@@ -10,7 +10,7 @@ main = print (product (map (champernowne !!) is))
     is = take 7 (map (subtract 1) (iterate (10*) 1))
 
 champernowne :: [Int]
-champernowne = concatMap toDigits [1..]
+champernowne = [1..] >>= toDigits
 
 toDigits :: Integral a => a -> [Int]
 toDigits = map digitToInt . show . fromIntegral

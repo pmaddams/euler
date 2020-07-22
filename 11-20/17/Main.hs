@@ -7,7 +7,7 @@ import Data.Char
 main :: IO ()
 main = print (length (filter isAlpha cs))
   where
-    cs = concatMap say [1..1000]
+    cs = [1..1000] >>= say
 
 say :: Int -> String
 say 0 = "Zero"

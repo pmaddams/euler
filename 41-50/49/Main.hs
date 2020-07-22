@@ -11,7 +11,7 @@ import qualified Data.Map as M
 main :: IO ()
 main = print $
     let ps = head (filter p primePermutations)
-    in fromDigits (concatMap toDigits ps)
+    in fromDigits (ps >>= toDigits)
   where
     p = not . (1487 `elem`)
 
