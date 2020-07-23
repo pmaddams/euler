@@ -4,12 +4,12 @@ import Main hiding (main)
 
 main :: IO ()
 main = do
-    testSumOfDigitPowers
+    testIsDigitPowerSum
     testToDigits
 
-testSumOfDigitPowers :: IO ()
-testSumOfDigitPowers = test "sumOfDigitPowers"
-    [ take 3 (filter (sumOfDigitPowers 4) [2..]) == [1634,8208,9474]
+testIsDigitPowerSum :: IO ()
+testIsDigitPowerSum = test "isDigitPowerSum"
+    [ take 3 (filter (isDigitPowerSum 4) [2..]) == [1634,8208,9474]
     ]
 
 testToDigits :: IO ()
