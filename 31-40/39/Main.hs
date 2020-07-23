@@ -23,7 +23,7 @@ perimeters = do
     let a = n^2 - m^2
         b = 2*n*m
         c = n^2 + m^2
-    return (a + b + c)
+    return (a+b+c)
 
 counts :: Eq a => [a] -> [(a, Int)]
 counts []       = []
