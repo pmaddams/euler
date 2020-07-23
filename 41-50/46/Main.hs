@@ -20,7 +20,7 @@ sumPrimeTwiceSquare n =
     loop n (m:ms) = prime (n-m) || loop n ms
 
 twiceSquares :: Integral a => [a]
-twiceSquares = map ((*2) . (^2)) [1..]
+twiceSquares = map ((2*) . (^2)) [1..]
 
 without :: Ord a => [a] -> [a] -> [a]
 [] `without` _  = []
