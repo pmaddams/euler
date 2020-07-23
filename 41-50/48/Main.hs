@@ -15,9 +15,8 @@ expmod :: Integral a => a -> a -> a -> a
 expmod a n m = loop n
   where
     loop 0 = 1
-    loop n =
-        let n' =
-             if even n
+    loop n = n' `rem` m
+      where
+        n' = if even n
              then (loop (n `quot` 2))^2
              else a * (loop (n-1))
-        in rem n' m
