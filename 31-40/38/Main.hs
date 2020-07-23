@@ -12,12 +12,12 @@ main = print (maximum ns)
     ns = mapMaybe concatProduct [1..9876]
 
 concatProduct :: Integral a => a -> Maybe a
-concatProduct n = loop [1..] []
+concatProduct n = loop [] [1..]
   where
-    loop ~(m:ms) acc
+    loop acc ~(m:ms)
         | not (distinct acc) = Nothing
         | sort acc == [1..9] = Just (fromDigits acc)
-        | otherwise          = loop ms (acc ++ toDigits (n*m))
+        | otherwise          = loop (acc ++ toDigits (n*m)) ms
 
 distinct :: Eq a => [a] -> Bool
 distinct xs = nub xs == xs
