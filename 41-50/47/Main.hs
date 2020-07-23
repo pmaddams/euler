@@ -8,12 +8,13 @@ import qualified Data.Map as M
 
 main :: IO ()
 main = print $
-    let ns = [1..]
-        gs = groupBy ((==) `on` snd) (zip ns (map f ns))
+    let gs = groupWith (length . nub . factors) [1..]
     in head [n | (n, m) <- map head (filter p gs), m == 4]
   where
-    f = length . nub . factors
     p = (>= 4) . length
+
+groupWith :: Eq b => (a -> b) -> [a] -> [[(a, b)]]
+groupWith f xs = groupBy ((==) `on` snd) [(x, y) | x <- xs, let y = f x]
 
 factors :: Integral a => a -> [a]
 factors = loop primes

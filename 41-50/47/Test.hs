@@ -4,9 +4,17 @@ import Main hiding (main)
 
 main :: IO ()
 main = do
+    testGroupWith
     testFactors
     testPrimes
     testDivisible
+
+testGroupWith :: IO ()
+testGroupWith = test "groupWith"
+    [ groupWith odd [1..3] == [[(1,True)],[(2,False)],[(3,True)]]
+    , groupWith odd [1,3,2] == [[(1,True),(3,True)],[(2,False)]]
+    , groupWith even [1,2,4] == [[(1,False)],[(2,True),(4,True)]]
+    ]
 
 testFactors :: IO ()
 testFactors = test "factors"
