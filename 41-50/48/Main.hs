@@ -6,7 +6,7 @@ main :: IO ()
 main = print $
     let ns = [1..]
         ps = zipWith f ns ns
-    in rem (sum (take 1000 ps)) m
+    in sum (take 1000 ps) `rem` m
   where
     m = 10^10
     f a n = expmod a n m
