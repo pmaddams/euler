@@ -15,12 +15,13 @@ main = print (sum ns)
 divisibleDigits :: Integral a => a -> [[Int]]
 divisibleDigits n =
     let ms = takeWhile (< 1000) (map (n*) [1..])
-    in map (loop . toDigits) ms
+    in map (f . toDigits) ms
   where
-    loop ds = case (length ds) of
+    f ds = case (length ds) of
         1 -> 0:0:ds
         2 -> 0:ds
         3 -> ds
+        _ -> error "divisibleDigits: too many digits"
 
 mergeDigits :: [[Int]] -> [[Int]] -> [[Int]]
 mergeDigits begins ends = concat (loop <$> begins <*> pure ends)
