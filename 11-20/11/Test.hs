@@ -28,8 +28,8 @@ testConnect = test "connect"
 
 testWalk :: IO ()
 testWalk = test "walk"
-    [ walk 2 grid east (1, 2) == [2, 3]
-    , walk 2 grid southwest (2, 3) == [6, 8]
+    [ walk 2 grid east (1, 2) == [2,3]
+    , walk 2 grid southwest (2, 3) == [6,8]
     , walk 3 grid south (1, 1) == [1,4,7]
     , walk 3 grid southeast (2, 2) == []
     ]

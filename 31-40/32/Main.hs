@@ -22,7 +22,7 @@ pandigitalProducts = do
     let c = a * b
         cs = toDigits c
     guard (sort (as ++ bs ++ cs) == [1..9])
-    return [a, b, c]
+    return [a,b,c]
 
 toDigits :: Integral a => a -> [Int]
 toDigits = map digitToInt . show . fromIntegral

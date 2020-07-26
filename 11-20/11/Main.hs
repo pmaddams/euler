@@ -29,7 +29,7 @@ makeGrid xss@(xs:_) =
 connect :: Int -> Grid a -> [[a]]
 connect n grid = do
     start <- range (bounds grid)
-    dir <- [east, southeast, south, southwest]
+    dir <- [east,southeast,south,southwest]
     let xs = (walk n grid dir start)
     guard (not (null xs))
     return xs

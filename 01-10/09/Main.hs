@@ -16,7 +16,7 @@ triplets = do
     t <- [2..]
     s <- [1..t-1]
     let r = unsquare (2*s*t)
-    maybe [] (\r -> return [r+s, r+t, r+s+t]) r
+    maybe [] (\r -> return [r+s,r+t,r+s+t]) r
 
 unsquare :: Integral a => a -> Maybe a
 unsquare n =

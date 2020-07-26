@@ -47,8 +47,8 @@ testDivisible = test "divisible"
 
 testBest :: IO ()
 testBest = test "best"
-    [ best [("a", 2), ("b", 3), ("c", 1)] == "b"
-    , best [(2, "a"), (3, "b"), (1, "c")] == 1
+    [ best [("a",2),("b",3),("c",1)] == "b"
+    , best [(2,"a"),(3,"b"),(1,"c")] == 1
     ]
 
 test :: String -> [Bool] -> IO ()

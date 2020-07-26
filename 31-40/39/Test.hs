@@ -10,7 +10,7 @@ main = do
 
 testPerimeters :: IO ()
 testPerimeters = test "perimeters"
-    [ take 2 perimeters == [3+4+5, 5+12+13]
+    [ take 2 perimeters == [3+4+5,5+12+13]
     ]
 
 testCounts :: IO ()
@@ -21,8 +21,8 @@ testCounts = test "counts"
 
 testBest :: IO ()
 testBest = test "best"
-    [ best [("a", 2), ("b", 3), ("c", 1)] == "b"
-    , best [(2, "a"), (3, "b"), (1, "c")] == 1
+    [ best [("a",2),("b",3),("c",1)] == "b"
+    , best [(2,"a"),(3,"b"),(1,"c")] == 1
     ]
 
 test :: String -> [Bool] -> IO ()

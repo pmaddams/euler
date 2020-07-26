@@ -23,13 +23,13 @@ testCollatz = test "collatz"
 testTakeUntil :: IO ()
 testTakeUntil = test "takeUntil"
     [ takeUntil (> 3) [1..] == [1..4]
-    , takeUntil (\x -> x / 0 == 1) [] == []
+    , takeUntil (\x -> x/0 == 1) [] == []
     ]
 
 testBest :: IO ()
 testBest = test "best"
-    [ best [("a", 2), ("b", 3), ("c", 1)] == "b"
-    , best [(2, "a"), (3, "b"), (1, "c")] == 1
+    [ best [("a",2),("b",3),("c",1)] == "b"
+    , best [(2,"a"),(3,"b"),(1,"c")] == 1
     ]
 
 test :: String -> [Bool] -> IO ()

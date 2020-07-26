@@ -5,7 +5,7 @@ module Main where
 main :: IO ()
 main = print (sum ns)
   where
-    ns = filter (`anyDivisible` [3, 5]) [1..999]
+    ns = filter (`anyDivisible` [3,5]) [1..999]
 
 anyDivisible :: Integral a => a -> [a] -> Bool
 anyDivisible = any . divisible

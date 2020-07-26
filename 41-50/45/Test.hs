@@ -18,7 +18,7 @@ testHexagonals = test "hexagonals"
 testPentagonal :: IO ()
 testPentagonal = test "pentagonal"
     [ all pentagonal [1,5,12,22,35,51,70,92,117,145]
-    , not (any pentagonal ([2..4]++[6..11]++[13..21]))
+    , not (any pentagonal ([2..4] ++ [6..11] ++ [13..21]))
     ]
 
 testUnsquare :: IO ()
