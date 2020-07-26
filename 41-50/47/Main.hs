@@ -14,7 +14,7 @@ main = print $
     p = (>= 4) . length
 
 groupWith :: Eq b => (a -> b) -> [a] -> [[(a, b)]]
-groupWith f xs = groupBy ((==) `on` snd) [(x, y) | x <- xs, let y = f x]
+groupWith f xs = groupBy ((==) `on` snd) [(x, f x) | x <- xs]
 
 factors :: Integral a => a -> [a]
 factors = loop primes
