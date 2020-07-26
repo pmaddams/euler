@@ -9,10 +9,11 @@ testSay :: IO ()
 testSay = test "say"
     [ say 123 == "One Hundred and Twenty Three"
     , say 54321 == "Fifty Four Thousand, Three Hundred and Twenty One"
-    , say 918273645 ==
-          "Nine Hundred and Eighteen Million, " ++
-          "Two Hundred and Seventy Three Thousand, " ++
-          "Six Hundred and Forty Five"
+    , say 9182736450 ==
+          "Nine Billion, " ++
+          "One Hundred and Eighty Two Million, " ++
+          "Seven Hundred and Thirty Six Thousand, " ++
+          "Four Hundred and Fifty"
     ]
 
 test :: String -> [Bool] -> IO ()
