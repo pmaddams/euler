@@ -5,10 +5,10 @@ module Main where
 main :: IO ()
 main = print (sum ns)
   where
-    ns = filter (`anyDivisible` [3,5]) [1..999]
+    ns = filter (`divisibleAny` [3,5]) [1..999]
 
-anyDivisible :: Integral a => a -> [a] -> Bool
-anyDivisible = any . divisible
+divisibleAny :: Integral a => a -> [a] -> Bool
+divisibleAny = any . divisible
 
 divisible :: Integral a => a -> a -> Bool
 n `divisible` d = n `rem` d == 0
