@@ -40,6 +40,7 @@ factors = loop primes
         | n `divisible` p = p : loop ps (n `quot` p)
         | otherwise       = loop ps' n
 
+-- Adapted from M. E. O'Neill, "The Genuine Sieve of Eratosthenes"
 primes :: Integral a => [a]
 primes = loop [2..] M.empty
   where
