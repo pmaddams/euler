@@ -4,13 +4,13 @@ import Main hiding (main)
 
 main :: IO ()
 main = do
-    testChampernowne
+    testChampernowneDigits
     testToDigits
 
-testChampernowne :: IO ()
-testChampernowne = test "champernowne"
-    [ take 9 champernowne == [1..9]
-    , champernowne !! 11 == 1
+testChampernowneDigits :: IO ()
+testChampernowneDigits = test "champernowneDigits"
+    [ take 9 champernowneDigits == [1..9]
+    , champernowneDigits !! 11 == 1
     ]
 
 testToDigits :: IO ()
