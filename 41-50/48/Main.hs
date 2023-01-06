@@ -9,14 +9,14 @@ main = print $
     in sum (take 1000 ps) `rem` m
   where
     m = 10^10
-    f a n = expmod a n m
+    f b n = modPow b n m
 
-expmod :: Integral a => a -> a -> a -> a
-expmod a n m = loop n
+modPow :: Integral a => a -> a -> a -> a
+modPow b n m = loop n
   where
     loop 0 = 1
     loop n = n' `rem` m
       where
         n' = if even n
              then (loop (n `quot` 2))^2
-             else a * (loop (n-1))
+             else b * (loop (n-1))
