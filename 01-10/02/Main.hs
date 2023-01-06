@@ -5,9 +5,9 @@ module Main where
 main :: IO ()
 main = print (sum (takeWhile (<= 4000000) ns))
   where
-    ns = filter even fibonacci
+    ns = filter even fibonacciNumbers
 
-fibonacci :: Num a => [a]
-fibonacci = ns
+fibonacciNumbers :: Num a => [a]
+fibonacciNumbers = ns
   where
     ns@(_:ns') = 0 : 1 : zipWith (+) ns ns'

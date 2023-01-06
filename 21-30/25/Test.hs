@@ -3,12 +3,12 @@ module Test where
 import Main hiding (main)
 
 main :: IO ()
-main = testFibonacci
+main = testFibonacciNumbers
 
-testFibonacci :: IO ()
-testFibonacci = test "fibonacci"
-    [ take 5 fibonacci == [0,1,1,2,3]
-    , fibonacci !! 20 == 6765
+testFibonacciNumbers :: IO ()
+testFibonacciNumbers = test "fibonacciNumbers"
+    [ take 5 fibonacciNumbers == [0,1,1,2,3]
+    , fibonacciNumbers !! 20 == 6765
     ]
 
 test :: String -> [Bool] -> IO ()

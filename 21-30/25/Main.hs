@@ -6,11 +6,11 @@ import Data.List
 import Data.Maybe
 
 main :: IO ()
-main = print (fromJust (findIndex p fibonacci))
+main = print (fromJust (findIndex p fibonacciNumbers))
   where
     p = (== 1000) . length . show
 
-fibonacci :: Num a => [a]
-fibonacci = ns
+fibonacciNumbers :: Num a => [a]
+fibonacciNumbers = ns
   where
     ns@(_:ns') = 0 : 1 : zipWith (+) ns ns'
