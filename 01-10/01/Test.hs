@@ -4,15 +4,15 @@ import Main hiding (main)
 
 main :: IO ()
 main = do
-    testDivisibleAny
+    testAnyDivisible
     testDivisible
 
-testDivisibleAny :: IO ()
-testDivisibleAny = test "divisibleAny"
-    [ 4 `divisibleAny` [2]
-    , not (7 `divisibleAny` [2,3])
-    , 10 `divisibleAny` [2,3,5]
-    , not (13 `divisibleAny` [2,3,5,7])
+testAnyDivisible :: IO ()
+testAnyDivisible = test "anyDivisible"
+    [ 4 `anyDivisible` [2]
+    , not (7 `anyDivisible` [2,3])
+    , 10 `anyDivisible` [2,3,5]
+    , not (13 `anyDivisible` [2,3,5,7])
     ]
 
 testDivisible :: IO ()
